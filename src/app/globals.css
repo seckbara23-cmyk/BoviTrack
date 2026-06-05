@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: #f7f3e8;
+  color: #2c2418;
+  font-family: var(--font-sans);
+  /* Prevent overscroll bounce revealing browser chrome on mobile */
+  overscroll-behavior-y: none;
+}
+
+/* Larger, more legible tap targets everywhere by default */
+@layer base {
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  /* Reusable touch-friendly tile */
+  .tile-press {
+    @apply transition-transform duration-150 active:scale-[0.97];
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
