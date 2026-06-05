@@ -1,44 +1,34 @@
-import { alerts } from "@/lib/mock-data";
+import { AlertsActions } from "@/components/security/AlertsActions";
+import { AlertCard } from "@/components/security/AlertCard";
+import { theftAlerts, activeAlertCount } from "@/lib/mock-data";
 
 export default function AlertsPage() {
+  // Phone of the responder for the first active alert (quick "Appeler").
+  const responderTel =
+    theftAlerts.find((a) => a.status !== "retrouve" && a.status !== "cloturee")
+      ?.herder.phone ?? theftAlerts[0].herder.phone;
+
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <header>
         <h1 className="flex items-center gap-2 text-2xl font-extrabold text-earth">
-          <span aria-hidden>🚨</span> Alertes
+          <span aria-hidden>🚨</span> Vol / Alerte
         </h1>
         <p className="text-sm text-earth/60">
-          {alerts.length} alertes actives (données fictives)
+          {activeAlertCount} alerte(s) en cours · données fictives
         </p>
       </header>
 
-      <ul className="space-y-3">
-        {alerts.map((alert) => (
-          <li
-            key={alert.id}
-            className={`flex items-start gap-4 rounded-3xl p-4 shadow-card ${
-              alert.level === "danger" ? "bg-alert/10" : "bg-gold/15"
-            }`}
-          >
-            <span className="text-4xl" aria-hidden>
-              {alert.icon}
-            </span>
-            <div className="leading-tight">
-              <div
-                className={`text-base font-bold ${
-                  alert.level === "danger" ? "text-alert" : "text-gold-dark"
-                }`}
-              >
-                {alert.title}
-              </div>
-              <p className="mt-0.5 text-sm text-earth/70">{alert.detail}</p>
-              <p className="mt-1 text-xs font-medium text-earth/50">
-                📍 {alert.location}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <AlertsActions responderTel={responderTel} />
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-bold text-earth">Alertes actives</h2>
+        <div className="space-y-3">
+          {theftAlerts.map((alert) => (
+            <AlertCard key={alert.id} alert={alert} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,11 +1,14 @@
 import { ActionTile } from "@/components/dashboard/ActionTile";
 import { SummaryCard } from "@/components/dashboard/SummaryCard";
 import { ListenButton } from "@/components/common/ListenButton";
+import { EmergencyTile } from "@/components/security/EmergencyTile";
+import { StatusBadge } from "@/components/security/StatusBadge";
+import Link from "next/link";
 import {
   dashboardActions,
   herdSummary,
   upcomingTasks,
-  alerts,
+  theftAlerts,
 } from "@/lib/mock-data";
 
 export default function DashboardPage() {
@@ -24,6 +27,9 @@ export default function DashboardPage() {
         </div>
         <ListenButton />
       </section>
+
+      {/* Anti-theft — highest-priority feature, loudest on the screen */}
+      <EmergencyTile />
 
       {/* Summary cards */}
       <section aria-label="Résumé du troupeau">
@@ -48,8 +54,8 @@ export default function DashboardPage() {
           />
           <SummaryCard
             icon="🚨"
-            value={herdSummary.alertesSecurite}
-            label="Alertes sécurité"
+            value={herdSummary.alertesVol}
+            label="Alertes vol"
             tone="alert"
           />
         </div>
@@ -95,35 +101,39 @@ export default function DashboardPage() {
         </div>
 
         <div className="rounded-3xl bg-white p-4 shadow-card">
-          <h2 className="mb-3 flex items-center gap-2 text-lg font-bold text-earth">
-            <span aria-hidden>🚨</span> Alertes
-          </h2>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="flex items-center gap-2 text-lg font-bold text-earth">
+              <span aria-hidden>🚨</span> Alertes vol
+            </h2>
+            <Link href="/alerts" className="text-sm font-semibold text-alert">
+              Tout voir ›
+            </Link>
+          </div>
           <ul className="space-y-2">
-            {alerts.map((alert) => (
-              <li
-                key={alert.id}
-                className={`flex items-start gap-3 rounded-2xl p-3 ${
-                  alert.level === "danger"
-                    ? "bg-alert/10"
-                    : "bg-gold/15"
-                }`}
-              >
-                <span className="text-2xl" aria-hidden>
-                  {alert.icon}
-                </span>
-                <div className="leading-tight">
-                  <div
-                    className={`text-sm font-bold ${
-                      alert.level === "danger" ? "text-alert" : "text-gold-dark"
-                    }`}
-                  >
-                    {alert.title}
+            {theftAlerts.slice(0, 3).map((alert) => (
+              <li key={alert.id}>
+                <Link
+                  href={`/alerts/${alert.id}`}
+                  className="flex items-center gap-3 rounded-2xl bg-sand p-3"
+                >
+                  <span className="text-2xl" aria-hidden>
+                    {alert.animalEmoji}
+                  </span>
+                  <div className="min-w-0 flex-1 leading-tight">
+                    <div className="truncate text-sm font-bold text-earth">
+                      {alert.animalName}{" "}
+                      <span className="font-normal text-earth/50">
+                        · 📍 {alert.lastKnownLocation}
+                      </span>
+                    </div>
+                    <div className="mt-1">
+                      <StatusBadge status={alert.status} size="sm" />
+                    </div>
                   </div>
-                  <div className="text-xs text-earth/70">{alert.detail}</div>
-                  <div className="mt-1 text-[11px] font-medium text-earth/50">
-                    📍 {alert.location}
-                  </div>
-                </div>
+                  <span aria-hidden className="text-earth/30">
+                    ›
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
