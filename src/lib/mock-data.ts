@@ -51,7 +51,7 @@ export const owners = [
 export type Contact = {
   name: string;
   phone: string;
-  role: "Propriétaire" | "Berger" | "Vétérinaire" | "Agent";
+  role: "Propriétaire" | "Berger" | "Vétérinaire" | "Agent" | "Vendeur" | "Acheteur";
 };
 
 /* ------------------------------------------------------------------ */
@@ -1173,6 +1173,261 @@ export const birthKpis = {
 };
 
 /* ------------------------------------------------------------------ */
+/* Ventes & Transferts — Phase 5 (attached to the Animal entity)       */
+/* ------------------------------------------------------------------ */
+
+/** Format an FCFA amount with thin spaces, e.g. 375000 -> "375 000 FCFA". */
+export function formatFcfa(amount: number): string {
+  return `${amount.toLocaleString("fr-FR")} FCFA`;
+}
+
+export type SaleStatus =
+  | "negociation"
+  | "confirmee"
+  | "paiement_attente"
+  | "transfert_attente"
+  | "transfere"
+  | "annule";
+
+export const saleStatusMeta: Record<
+  SaleStatus,
+  { label: string; emoji: string; className: string }
+> = {
+  negociation: { label: "En négociation", emoji: "🤝", className: "bg-gold/15 text-gold-dark" },
+  confirmee: { label: "Vente confirmée", emoji: "📝", className: "bg-green-50 text-green" },
+  paiement_attente: { label: "Paiement en attente", emoji: "💸", className: "bg-alert/10 text-alert" },
+  transfert_attente: { label: "Transfert en attente", emoji: "🔄", className: "bg-gold/15 text-gold-dark" },
+  transfere: { label: "Transféré", emoji: "✅", className: "bg-green-50 text-green" },
+  annule: { label: "Annulé", emoji: "❌", className: "bg-alert/10 text-alert" },
+};
+
+/* Buyers (sellers reuse existing owner contacts via the C directory). */
+const B = {
+  fatouDiop: { name: "Fatou Diop", phone: "+221 77 333 21 09", role: "Acheteur" } as Contact,
+  ibrahimaSarr: { name: "Ibrahima Sarr", phone: "+221 76 744 55 80", role: "Acheteur" } as Contact,
+  moussaBa: { name: "Moussa Ba", phone: "+221 77 845 19 30", role: "Acheteur" } as Contact,
+  awaNdiaye: { name: "Awa Ndiaye", phone: "+221 78 204 66 17", role: "Acheteur" } as Contact,
+  cheikhFall: { name: "Cheikh Fall", phone: "+221 77 119 52 76", role: "Acheteur" } as Contact,
+};
+
+const seller = (c: Contact): Contact => ({ ...c, role: "Vendeur" });
+
+export type SaleRecord = {
+  id: string; // VENTE-2026-001
+  animalId: string;
+  animalName: string;
+  animalBreed: Breed;
+  animalEmoji: string;
+  seller: Contact;
+  buyer: Contact;
+  priceFcfa: number;
+  saleDate: string;
+  market: string;
+  location: Location;
+  status: SaleStatus;
+  paymentStatus: string;
+  documents?: string[];
+  timeline: { id: string; time: string; label: string; icon: string }[];
+};
+
+const saleTimeline = (
+  events: [SaleStatus | "base", string, string][],
+): { id: string; time: string; label: string; icon: string }[] =>
+  events.map(([, time, label], i) => ({
+    id: `s${i + 1}`,
+    time,
+    label,
+    icon: ["📝", "💰", "💵", "🔄", "✅"][i] ?? "•",
+  }));
+
+export const saleRecords: SaleRecord[] = [
+  {
+    id: "VENTE-2026-001",
+    animalId: "SN-BOV-2026-0005",
+    animalName: "Khady",
+    animalBreed: "Gobra",
+    animalEmoji: "🐄",
+    seller: seller(C.cheikhFall),
+    buyer: B.fatouDiop,
+    priceFcfa: 375000,
+    saleDate: "02 juin 2026",
+    market: "Marché de Linguère",
+    location: "Linguère",
+    status: "transfere",
+    paymentStatus: "Payé intégralement",
+    documents: ["Reçu de vente", "Certificat de propriété", "Pièce d'identité acheteur"],
+    timeline: saleTimeline([
+      ["base", "28 mai 2026", "Vente enregistrée"],
+      ["confirmee", "29 mai 2026", "Prix confirmé"],
+      ["paiement_attente", "31 mai 2026", "Paiement reçu"],
+      ["transfert_attente", "02 juin 2026", "Propriétaire transféré"],
+      ["transfere", "02 juin 2026", "Clôturé"],
+    ]),
+  },
+  {
+    id: "VENTE-2026-002",
+    animalId: "SN-BOV-2026-0011",
+    animalName: "Tassi",
+    animalBreed: "Ndama",
+    animalEmoji: "🐂",
+    seller: seller(C.ousmaneSow),
+    buyer: B.ibrahimaSarr,
+    priceFcfa: 520000,
+    saleDate: "Cette semaine",
+    market: "Marché de Dahra",
+    location: "Dahra",
+    status: "confirmee",
+    paymentStatus: "En attente",
+    timeline: saleTimeline([
+      ["base", "03 juin 2026", "Vente enregistrée"],
+      ["confirmee", "04 juin 2026", "Prix confirmé"],
+    ]),
+  },
+  {
+    id: "VENTE-2026-003",
+    animalId: "SN-BOV-2026-0003",
+    animalName: "Penda",
+    animalBreed: "Djakoré",
+    animalEmoji: "🐄",
+    seller: seller(C.amadouDiallo),
+    buyer: B.moussaBa,
+    priceFcfa: 250000,
+    saleDate: "Cette semaine",
+    market: "Marché de Kaolack",
+    location: "Kaolack",
+    status: "negociation",
+    paymentStatus: "Non démarré",
+    timeline: saleTimeline([["base", "04 juin 2026", "Vente enregistrée"]]),
+  },
+  {
+    id: "VENTE-2026-004",
+    animalId: "SN-BOV-2026-0012",
+    animalName: "Galo",
+    animalBreed: "Guzerat",
+    animalEmoji: "🐂",
+    seller: seller(C.moussaBa),
+    buyer: B.awaNdiaye,
+    priceFcfa: 850000,
+    saleDate: "30 mai 2026",
+    market: "Marché de Matam",
+    location: "Matam",
+    status: "paiement_attente",
+    paymentStatus: "Paiement partiel (400 000 FCFA reçus)",
+    timeline: saleTimeline([
+      ["base", "28 mai 2026", "Vente enregistrée"],
+      ["confirmee", "29 mai 2026", "Prix confirmé"],
+      ["paiement_attente", "30 mai 2026", "Paiement partiel reçu"],
+    ]),
+  },
+  {
+    id: "VENTE-2026-005",
+    animalId: "SN-BOV-2026-0013",
+    animalName: "Wouri",
+    animalBreed: "Gobra",
+    animalEmoji: "🐄",
+    seller: seller(C.awaNdiaye),
+    buyer: B.cheikhFall,
+    priceFcfa: 375000,
+    saleDate: "29 mai 2026",
+    market: "Marché de Thiès",
+    location: "Thiès",
+    status: "transfert_attente",
+    paymentStatus: "Payé intégralement",
+    timeline: saleTimeline([
+      ["base", "27 mai 2026", "Vente enregistrée"],
+      ["confirmee", "28 mai 2026", "Prix confirmé"],
+      ["paiement_attente", "29 mai 2026", "Paiement reçu"],
+      ["transfert_attente", "29 mai 2026", "Transfert de propriété en cours"],
+    ]),
+  },
+  {
+    id: "VENTE-2026-006",
+    animalId: "SN-BOV-2026-0014",
+    animalName: "Diam",
+    animalBreed: "Djakoré",
+    animalEmoji: "🐄",
+    seller: seller(B.ibrahimaSarr),
+    buyer: B.fatouDiop,
+    priceFcfa: 250000,
+    saleDate: "25 mai 2026",
+    market: "Marché de Tambacounda",
+    location: "Tambacounda",
+    status: "annule",
+    paymentStatus: "Annulé — acheteur désisté",
+    timeline: saleTimeline([
+      ["base", "24 mai 2026", "Vente enregistrée"],
+      ["confirmee", "25 mai 2026", "Vente annulée"],
+    ]),
+  },
+  {
+    id: "VENTE-2026-007",
+    animalId: "SN-BOV-2026-0015",
+    animalName: "Sama",
+    animalBreed: "Montbéliarde",
+    animalEmoji: "🐂",
+    seller: seller(C.cheikhFall),
+    buyer: B.ibrahimaSarr,
+    priceFcfa: 850000,
+    saleDate: "20 mai 2026",
+    market: "Marché de Dahra",
+    location: "Dahra",
+    status: "transfere",
+    paymentStatus: "Payé intégralement",
+    documents: ["Reçu de vente", "Certificat de propriété", "Pièce d'identité acheteur"],
+    timeline: saleTimeline([
+      ["base", "16 mai 2026", "Vente enregistrée"],
+      ["confirmee", "17 mai 2026", "Prix confirmé"],
+      ["paiement_attente", "18 mai 2026", "Paiement reçu"],
+      ["transfert_attente", "20 mai 2026", "Propriétaire transféré"],
+      ["transfere", "20 mai 2026", "Clôturé"],
+    ]),
+  },
+  {
+    id: "VENTE-2026-008",
+    animalId: "SN-BOV-2026-0016",
+    animalName: "Lewru",
+    animalBreed: "Ndama",
+    animalEmoji: "🐂",
+    seller: seller(C.moussaBa),
+    buyer: B.fatouDiop,
+    priceFcfa: 520000,
+    saleDate: "Cette semaine",
+    market: "Marché de Linguère",
+    location: "Linguère",
+    status: "confirmee",
+    paymentStatus: "En attente",
+    timeline: saleTimeline([
+      ["base", "05 juin 2026", "Vente enregistrée"],
+      ["confirmee", "05 juin 2026", "Prix confirmé"],
+    ]),
+  },
+];
+
+export function getSaleById(id: string): SaleRecord | undefined {
+  return saleRecords.find((s) => s.id === id);
+}
+
+export function getSalesByAnimal(animalId: string): SaleRecord[] {
+  return saleRecords.filter((s) => s.animalId === animalId);
+}
+
+const salePending = (s: SaleStatus) =>
+  s === "confirmee" || s === "paiement_attente" || s === "transfert_attente";
+
+export const salesKpis = {
+  ceMois: saleRecords.filter(
+    (s) => s.saleDate.includes("juin") || s.saleDate.includes("Cette semaine"),
+  ).length,
+  montantTotal: saleRecords
+    .filter((s) => s.status !== "annule")
+    .reduce((sum, s) => sum + s.priceFcfa, 0),
+  transfertsEnAttente: saleRecords.filter((s) => salePending(s.status)).length,
+  animauxVendus: new Set(
+    saleRecords.filter((s) => s.status !== "annule" && s.status !== "negociation").map((s) => s.animalId),
+  ).size,
+};
+
+/* ------------------------------------------------------------------ */
 /* Dashboard tiles                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -1195,7 +1450,7 @@ export const dashboardActions: DashboardAction[] = [
   { href: "/care", label: "Soins", icon: "💉", badge: careKpis.vetAAppeler, accent: "from-white to-sand-dark text-earth" },
   { href: "/vaccines", label: "Vaccins", icon: "🧪", badge: vaccinationsPending, accent: "from-white to-sand-dark text-earth" },
   { href: "/births", label: "Naissances", icon: "👶", badge: birthKpis.aEnregistrer, accent: "from-white to-sand-dark text-earth" },
-  { href: "/sales", label: "Ventes", icon: "💰", accent: "from-white to-sand-dark text-earth" },
+  { href: "/sales", label: "Ventes", icon: "💰", badge: salesKpis.transfertsEnAttente, accent: "from-white to-sand-dark text-earth" },
   { href: "/reports", label: "Résultats", icon: "📊", accent: "from-white to-sand-dark text-earth" },
 ];
 

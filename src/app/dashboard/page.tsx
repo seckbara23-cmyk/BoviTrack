@@ -10,6 +10,7 @@ import {
   careKpis,
   vaccinationsPending,
   activeAlertCount,
+  salesKpis,
   upcomingTasks,
   theftAlerts,
 } from "@/lib/mock-data";
@@ -36,7 +37,7 @@ export default function DashboardPage() {
 
       {/* Summary cards — tappable, reflecting live mock data */}
       <section aria-label="Résumé du troupeau">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           <Link href="/herd">
             <SummaryCard icon="🐄" value={herdStats.total} label="Total animaux" tone="ok" />
           </Link>
@@ -48,6 +49,9 @@ export default function DashboardPage() {
           </Link>
           <Link href="/alerts">
             <SummaryCard icon="🚨" value={activeAlertCount} label="Alertes vol" tone="alert" />
+          </Link>
+          <Link href="/sales">
+            <SummaryCard icon="🔄" value={salesKpis.transfertsEnAttente} label="Transferts en attente" tone="warning" />
           </Link>
         </div>
       </section>

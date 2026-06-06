@@ -5,6 +5,8 @@ const roleEmoji: Record<Contact["role"], string> = {
   Berger: "👨‍🌾",
   Vétérinaire: "🩺",
   Agent: "🧑‍💼",
+  Vendeur: "🧑‍🌾",
+  Acheteur: "🤝",
 };
 
 /**

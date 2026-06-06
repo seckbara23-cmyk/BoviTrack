@@ -4,6 +4,7 @@ import { SecurityPanel } from "@/components/herd/SecurityPanel";
 import { AnimalQuickActions } from "@/components/herd/AnimalQuickActions";
 import { HealthPanel } from "@/components/herd/HealthPanel";
 import { ReproductionPanel } from "@/components/herd/ReproductionPanel";
+import { SalesPanel } from "@/components/herd/SalesPanel";
 import { ContactButton } from "@/components/security/ContactButton";
 import {
   getAnimalById,
@@ -17,6 +18,7 @@ import {
   getBreedingByFather,
   getBirthsByMother,
   getBirthsByFather,
+  getSalesByAnimal,
 } from "@/lib/mock-data";
 
 export function generateStaticParams() {
@@ -72,6 +74,7 @@ export default async function AnimalProfilePage({
   const breedingAsFather = getBreedingByFather(animal.id);
   const birthsAsMother = getBirthsByMother(animal.id);
   const birthsAsFather = getBirthsByFather(animal.id);
+  const sales = getSalesByAnimal(animal.id);
 
   return (
     <div className="space-y-5">
@@ -191,6 +194,9 @@ export default async function AnimalProfilePage({
         birthsAsMother={birthsAsMother}
         birthsAsFather={birthsAsFather}
       />
+
+      {/* Sales & ownership transfer — real linked records (Phase 5) */}
+      <SalesPanel sales={sales} />
 
       {/* Timeline */}
       <Panel icon="🕒" title="Historique">
