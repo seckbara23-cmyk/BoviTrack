@@ -1428,33 +1428,6 @@ export const salesKpis = {
 };
 
 /* ------------------------------------------------------------------ */
-/* Dashboard tiles                                                     */
-/* ------------------------------------------------------------------ */
-
-export type DashboardAction = {
-  href: string;
-  label: string;
-  icon: string;
-  badge?: number;
-  accent: string;
-};
-
-/**
- * Large action tiles shown on the dashboard, in display order.
- * NOTE: "Vol / Alerte" is rendered as a dedicated emergency tile above
- * the grid, so it is intentionally absent here.
- */
-export const dashboardActions: DashboardAction[] = [
-  { href: "/herd", label: "Mon troupeau", icon: "🐄", accent: "from-green to-green-dark text-white" },
-  { href: "/location", label: "Localisation", icon: "📍", accent: "from-white to-sand-dark text-earth" },
-  { href: "/care", label: "Soins", icon: "💉", badge: careKpis.vetAAppeler, accent: "from-white to-sand-dark text-earth" },
-  { href: "/vaccines", label: "Vaccins", icon: "🧪", badge: vaccinationsPending, accent: "from-white to-sand-dark text-earth" },
-  { href: "/births", label: "Naissances", icon: "👶", badge: birthKpis.aEnregistrer, accent: "from-white to-sand-dark text-earth" },
-  { href: "/sales", label: "Ventes", icon: "💰", badge: salesKpis.transfertsEnAttente, accent: "from-white to-sand-dark text-earth" },
-  { href: "/reports", label: "Résultats", icon: "📊", accent: "from-white to-sand-dark text-earth" },
-];
-
-/* ------------------------------------------------------------------ */
 /* Anti-theft / Vol & Alerte                                           */
 /* ------------------------------------------------------------------ */
 
@@ -1622,4 +1595,112 @@ export const upcomingTasks: UpcomingTask[] = [
   { id: "t2", label: "Mise bas proche — Aïssata", due: "Imminent", icon: "🍼", href: "/breeding" },
   { id: "t3", label: "Vaccins en retard — 2 animaux", due: "Cette semaine", icon: "🧪", href: "/vaccines" },
   { id: "t4", label: "Soin urgent — Penda", due: "Aujourd'hui", icon: "🤒", href: "/care" },
+];
+
+/* ------------------------------------------------------------------ */
+/* Résultats / Rapports — Phase 6 (derived from every module)          */
+/* ------------------------------------------------------------------ */
+
+/** Distinct females with an ongoing gestation. */
+const pregnantFemales = new Set(
+  breedingRecords.filter((b) => breedingActive(b.status)).map((b) => b.femaleId),
+).size;
+
+/** Headline KPIs for the reports overview. */
+export const reportKpis = {
+  total: animals.length,
+  securises: herdStats.securises,
+  alertesVol: activeAlertCount,
+  soinsUrgents: careKpis.vetAAppeler,
+  vaccinsEnRetard: vaccineKpis.enRetard,
+  gestations: pregnantFemales,
+  naissances: birthRecords.length,
+  ventes: saleRecords.length,
+  montantVentes: salesKpis.montantTotal,
+};
+
+/** Animal counts by zone, in the canonical Senegal order. */
+export const animalsByLocation: { location: Location; count: number }[] =
+  locations.map((location) => ({
+    location,
+    count: animals.filter((a) => a.ownership.location === location).length,
+  }));
+
+/** Animal counts by breed. */
+export const animalsByBreed: { breed: Breed; count: number }[] = breeds.map(
+  (breed) => ({
+    breed,
+    count: animals.filter((a) => a.identity.breed === breed).length,
+  }),
+);
+
+/** Security overview: active alerts (listed) + location-risk counts. */
+export const securityReport = {
+  activeAlerts: theftAlerts.filter(
+    (a) => a.status === "nouvelle" || a.status === "recherche" || a.status === "autorites",
+  ),
+  outsideZone: animalLocations.filter((l) => l.risk === "sortie").length,
+  oldPositions: animalLocations.filter((l) => l.risk === "ancienne").length,
+};
+
+/** Health & vaccines overview. */
+export const healthReport = {
+  sick: animals.filter((a) => a.health.status === "malade").length,
+  urgentCare: careRecords.filter((c) => c.status === "urgent").length,
+  overdueVaccines: vaccineKpis.enRetard,
+  nextVaccines: vaccineKpis.aFaire,
+};
+
+/** Reproduction & births overview. */
+export const reproductionReport = {
+  pregnant: pregnantFemales,
+  expectedSoon: breedingRecords.filter((b) => b.status === "mise_bas_proche").length,
+  birthsThisMonth: birthKpis.ceMois,
+  followUp: birthKpis.suiviMere,
+};
+
+/** Sales & transfers overview. */
+export const salesReport = {
+  thisMonth: salesKpis.ceMois,
+  totalRevenue: salesKpis.montantTotal,
+  pendingTransfers: salesKpis.transfertsEnAttente,
+  paymentIssues: saleRecords.filter((s) => s.status === "paiement_attente").length,
+};
+
+/* ------------------------------------------------------------------ */
+/* Dashboard tiles (defined last — depends on every module's KPIs)     */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Total number of items across all modules that need attention — used as
+ * the badge on the Résultats (reports) tile.
+ */
+export const reviewCount =
+  activeAlertCount +
+  careKpis.vetAAppeler +
+  vaccineKpis.enRetard +
+  birthKpis.aEnregistrer +
+  salesKpis.transfertsEnAttente;
+
+export type DashboardAction = {
+  href: string;
+  label: string;
+  icon: string;
+  badge?: number;
+  accent: string;
+};
+
+/**
+ * Large action tiles shown on the dashboard, in display order.
+ * NOTE: "Vol / Alerte" is rendered as a dedicated emergency tile above
+ * the grid, so it is intentionally absent here.
+ */
+export const dashboardActions: DashboardAction[] = [
+  { href: "/herd", label: "Mon troupeau", icon: "🐄", accent: "from-green to-green-dark text-white" },
+  { href: "/location", label: "Localisation", icon: "📍", accent: "from-white to-sand-dark text-earth" },
+  { href: "/care", label: "Soins", icon: "💉", badge: careKpis.vetAAppeler, accent: "from-white to-sand-dark text-earth" },
+  { href: "/vaccines", label: "Vaccins", icon: "🧪", badge: vaccinationsPending, accent: "from-white to-sand-dark text-earth" },
+  { href: "/births", label: "Naissances", icon: "👶", badge: birthKpis.aEnregistrer, accent: "from-white to-sand-dark text-earth" },
+  { href: "/sales", label: "Ventes", icon: "💰", badge: salesKpis.transfertsEnAttente, accent: "from-white to-sand-dark text-earth" },
+  { href: "/reports", label: "Résultats", icon: "📊", badge: reviewCount, accent: "from-white to-sand-dark text-earth" },
 ];
