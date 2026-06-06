@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Panel } from "@/components/common/Panel";
+import { Field } from "@/components/common/Field";
+import { BackHeader } from "@/components/common/BackHeader";
 import { SecurityPanel } from "@/components/herd/SecurityPanel";
 import { AnimalQuickActions } from "@/components/herd/AnimalQuickActions";
 import { HealthPanel } from "@/components/herd/HealthPanel";
@@ -23,35 +26,6 @@ import {
 
 export function generateStaticParams() {
   return animals.map((a) => ({ animalId: a.id }));
-}
-
-/** Small labelled field used inside the info panels. */
-function Field({ label, value }: { label: string; value: React.ReactNode }) {
-  return (
-    <div className="rounded-2xl bg-sand p-3 leading-tight">
-      <dt className="text-xs font-semibold text-earth/50">{label}</dt>
-      <dd className="mt-0.5 font-semibold text-earth">{value}</dd>
-    </div>
-  );
-}
-
-function Panel({
-  icon,
-  title,
-  children,
-}: {
-  icon: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="rounded-3xl bg-white p-4 shadow-card">
-      <h2 className="mb-3 flex items-center gap-2 text-lg font-bold text-earth">
-        <span aria-hidden>{icon}</span> {title}
-      </h2>
-      {children}
-    </section>
-  );
 }
 
 export default async function AnimalProfilePage({
@@ -78,16 +52,7 @@ export default async function AnimalProfilePage({
 
   return (
     <div className="space-y-5">
-      {/* Back + id */}
-      <div className="flex items-center justify-between">
-        <Link
-          href="/herd"
-          className="flex items-center gap-1.5 text-sm font-semibold text-earth/70"
-        >
-          <span aria-hidden>‹</span> Mon troupeau
-        </Link>
-        <span className="font-mono text-xs text-earth/40">{animal.id}</span>
-      </div>
+      <BackHeader href="/herd" label="Mon troupeau" id={animal.id} />
 
       {/* Header / identity at a glance */}
       <section className="flex items-center gap-4 rounded-3xl bg-white p-5 shadow-card">

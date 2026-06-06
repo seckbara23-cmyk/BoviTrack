@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/common/Badge";
+import { Panel } from "@/components/common/Panel";
+import { Field } from "@/components/common/Field";
+import { BackHeader } from "@/components/common/BackHeader";
 import { ContactButton } from "@/components/security/ContactButton";
 import { RecordActions } from "@/components/common/RecordActions";
 import {
@@ -12,34 +15,6 @@ import {
 
 export function generateStaticParams() {
   return vaccineRecords.map((v) => ({ vaccineId: v.id }));
-}
-
-function Field({ label, value }: { label: string; value: React.ReactNode }) {
-  return (
-    <div className="rounded-2xl bg-sand p-3 leading-tight">
-      <dt className="text-xs font-semibold text-earth/50">{label}</dt>
-      <dd className="mt-0.5 font-semibold text-earth">{value}</dd>
-    </div>
-  );
-}
-
-function Panel({
-  icon,
-  title,
-  children,
-}: {
-  icon: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="rounded-3xl bg-white p-4 shadow-card">
-      <h2 className="mb-3 flex items-center gap-2 text-lg font-bold text-earth">
-        <span aria-hidden>{icon}</span> {title}
-      </h2>
-      {children}
-    </section>
-  );
 }
 
 export default async function VaccineDetailPage({
@@ -60,12 +35,7 @@ export default async function VaccineDetailPage({
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <Link href="/vaccines" className="flex items-center gap-1.5 text-sm font-semibold text-earth/70">
-          <span aria-hidden>‹</span> Vaccins
-        </Link>
-        <span className="font-mono text-xs text-earth/40">{vaccine.id}</span>
-      </div>
+      <BackHeader href="/vaccines" label="Vaccins" id={vaccine.id} />
 
       {/* Animal identity card → link to profile */}
       <Link

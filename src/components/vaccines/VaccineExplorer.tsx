@@ -8,6 +8,7 @@ import type {
   VaccineStatus,
 } from "@/lib/mock-data";
 import { locations, vaccineStatusMeta } from "@/lib/mock-data";
+import { NoResults } from "@/components/common/NoResults";
 import { VaccineCard } from "./VaccineCard";
 
 type StatusFilter = VaccineStatus | "tous";
@@ -140,13 +141,7 @@ export function VaccineExplorer({
       </p>
 
       {results.length === 0 ? (
-        <div className="rounded-3xl bg-white p-8 text-center shadow-card">
-          <span className="text-5xl" aria-hidden>
-            🔍
-          </span>
-          <p className="mt-3 font-semibold text-earth">Aucun vaccin trouvé</p>
-          <p className="text-sm text-earth/60">Modifiez la recherche ou les filtres.</p>
-        </div>
+        <NoResults icon="🧪" title="Aucun vaccin trouvé" />
       ) : (
         <div className="grid gap-3 lg:grid-cols-2">
           {results.map((vaccine) => (

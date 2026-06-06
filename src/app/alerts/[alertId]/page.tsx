@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StatusBadge } from "@/components/security/StatusBadge";
+import { Panel } from "@/components/common/Panel";
+import { BackHeader } from "@/components/common/BackHeader";
 import { ContactButton } from "@/components/security/ContactButton";
 import { AlertDetailActions } from "@/components/security/AlertDetailActions";
 import { getAlertById, theftAlerts } from "@/lib/mock-data";
@@ -25,16 +27,7 @@ export default async function AlertDetailPage({
 
   return (
     <div className="space-y-6">
-      {/* Back + id */}
-      <div className="flex items-center justify-between">
-        <Link
-          href="/alerts"
-          className="flex items-center gap-1.5 text-sm font-semibold text-earth/70"
-        >
-          <span aria-hidden>‹</span> Alertes
-        </Link>
-        <span className="font-mono text-xs text-earth/40">{alert.id}</span>
-      </div>
+      <BackHeader href="/alerts" label="Alertes" id={alert.id} />
 
       {/* Animal identity */}
       <section className="flex items-center gap-4 rounded-3xl bg-white p-5 shadow-card">
@@ -67,10 +60,7 @@ export default async function AlertDetailPage({
       <AlertDetailActions ownerTel={alert.owner.phone} isResolved={isResolved} />
 
       {/* Last known location */}
-      <section className="rounded-3xl bg-white p-4 shadow-card">
-        <h2 className="mb-2 flex items-center gap-2 text-lg font-bold text-earth">
-          <span aria-hidden>📍</span> Dernière position connue
-        </h2>
+      <Panel icon="📍" title="Dernière position connue">
         <p className="text-sm font-semibold text-earth">
           {alert.lastKnownLocation}
         </p>
@@ -87,24 +77,18 @@ export default async function AlertDetailPage({
             <span className="text-xs">Toucher pour la localisation</span>
           </span>
         </Link>
-      </section>
+      </Panel>
 
       {/* Contacts */}
-      <section className="rounded-3xl bg-white p-4 shadow-card">
-        <h2 className="mb-3 flex items-center gap-2 text-lg font-bold text-earth">
-          <span aria-hidden>📇</span> Responsables
-        </h2>
+      <Panel icon="📇" title="Responsables">
         <div className="space-y-3">
           <ContactButton contact={alert.owner} />
           <ContactButton contact={alert.herder} />
         </div>
-      </section>
+      </Panel>
 
       {/* Timeline */}
-      <section className="rounded-3xl bg-white p-4 shadow-card">
-        <h2 className="mb-3 flex items-center gap-2 text-lg font-bold text-earth">
-          <span aria-hidden>🕒</span> Suivi de l&apos;alerte
-        </h2>
+      <Panel icon="🕒" title="Suivi de l'alerte">
         <ol className="relative space-y-4 border-l-2 border-sand-dark pl-5">
           {alert.timeline.map((event) => (
             <li key={event.id} className="relative">
@@ -120,7 +104,7 @@ export default async function AlertDetailPage({
             </li>
           ))}
         </ol>
-      </section>
+      </Panel>
     </div>
   );
 }

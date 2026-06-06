@@ -14,6 +14,8 @@ body {
   background-color: #f7f3e8;
   color: #2c2418;
   font-family: var(--font-sans);
+  /* Slightly larger base text for field readability */
+  font-size: 16px;
   /* Prevent overscroll bounce revealing browser chrome on mobile */
   overscroll-behavior-y: none;
 }
@@ -23,6 +25,17 @@ body {
   button,
   a {
     -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Visible keyboard focus ring for accessibility (mouse/touch unaffected) */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 3px solid #0f7b45;
+    outline-offset: 2px;
+    border-radius: 0.75rem;
   }
 }
 

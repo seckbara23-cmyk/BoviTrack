@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { BreedingRecord, BreedingStatus, Location } from "@/lib/mock-data";
 import { locations, breedingStatusMeta, getAnimalById } from "@/lib/mock-data";
+import { NoResults } from "@/components/common/NoResults";
 import { BreedingCard } from "./BreedingCard";
 
 type StatusFilter = BreedingStatus | "tous";
@@ -107,13 +108,7 @@ export function BreedingExplorer({ records }: { records: BreedingRecord[] }) {
       </p>
 
       {results.length === 0 ? (
-        <div className="rounded-3xl bg-white p-8 text-center shadow-card">
-          <span className="text-5xl" aria-hidden>
-            🔍
-          </span>
-          <p className="mt-3 font-semibold text-earth">Aucune reproduction trouvée</p>
-          <p className="text-sm text-earth/60">Modifiez la recherche ou les filtres.</p>
-        </div>
+        <NoResults icon="🐄🐂" title="Aucune reproduction trouvée" />
       ) : (
         <div className="grid gap-3 lg:grid-cols-2">
           {results.map((record) => (

@@ -1700,6 +1700,7 @@ export const dashboardActions: DashboardAction[] = [
   { href: "/location", label: "Localisation", icon: "📍", accent: "from-white to-sand-dark text-earth" },
   { href: "/care", label: "Soins", icon: "💉", badge: careKpis.vetAAppeler, accent: "from-white to-sand-dark text-earth" },
   { href: "/vaccines", label: "Vaccins", icon: "🧪", badge: vaccinationsPending, accent: "from-white to-sand-dark text-earth" },
+  { href: "/breeding", label: "Reproduction", icon: "🐄🐂", badge: breedingKpis.retards, accent: "from-white to-sand-dark text-earth" },
   { href: "/births", label: "Naissances", icon: "👶", badge: birthKpis.aEnregistrer, accent: "from-white to-sand-dark text-earth" },
   { href: "/sales", label: "Ventes", icon: "💰", badge: salesKpis.transfertsEnAttente, accent: "from-white to-sand-dark text-earth" },
   { href: "/reports", label: "Résultats", icon: "📊", badge: reviewCount, accent: "from-white to-sand-dark text-earth" },

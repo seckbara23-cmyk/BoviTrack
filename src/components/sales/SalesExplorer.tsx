@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { SaleRecord, SaleStatus, Location } from "@/lib/mock-data";
 import { locations, saleStatusMeta } from "@/lib/mock-data";
+import { NoResults } from "@/components/common/NoResults";
 import { SaleCard } from "./SaleCard";
 
 type StatusFilter = SaleStatus | "tous";
@@ -105,13 +106,7 @@ export function SalesExplorer({ records }: { records: SaleRecord[] }) {
       </p>
 
       {results.length === 0 ? (
-        <div className="rounded-3xl bg-white p-8 text-center shadow-card">
-          <span className="text-5xl" aria-hidden>
-            🔍
-          </span>
-          <p className="mt-3 font-semibold text-earth">Aucune vente trouvée</p>
-          <p className="text-sm text-earth/60">Modifiez la recherche ou les filtres.</p>
-        </div>
+        <NoResults icon="💰" title="Aucune vente trouvée" />
       ) : (
         <div className="grid gap-3 lg:grid-cols-2">
           {results.map((sale) => (

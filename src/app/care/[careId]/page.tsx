@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/common/Badge";
+import { Panel } from "@/components/common/Panel";
+import { BackHeader } from "@/components/common/BackHeader";
 import { ContactButton } from "@/components/security/ContactButton";
 import { RecordActions } from "@/components/common/RecordActions";
 import {
@@ -12,25 +14,6 @@ import {
 
 export function generateStaticParams() {
   return careRecords.map((c) => ({ careId: c.id }));
-}
-
-function Panel({
-  icon,
-  title,
-  children,
-}: {
-  icon: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="rounded-3xl bg-white p-4 shadow-card">
-      <h2 className="mb-3 flex items-center gap-2 text-lg font-bold text-earth">
-        <span aria-hidden>{icon}</span> {title}
-      </h2>
-      {children}
-    </section>
-  );
 }
 
 export default async function CareDetailPage({
@@ -51,12 +34,7 @@ export default async function CareDetailPage({
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <Link href="/care" className="flex items-center gap-1.5 text-sm font-semibold text-earth/70">
-          <span aria-hidden>‹</span> Soins
-        </Link>
-        <span className="font-mono text-xs text-earth/40">{care.id}</span>
-      </div>
+      <BackHeader href="/care" label="Soins" id={care.id} />
 
       {/* Animal identity card → link to profile */}
       <Link
