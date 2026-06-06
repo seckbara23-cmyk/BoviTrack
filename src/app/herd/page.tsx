@@ -1,8 +1,19 @@
 import { SummaryCard } from "@/components/dashboard/SummaryCard";
 import { HerdExplorer } from "@/components/herd/HerdExplorer";
-import { animals, herdStats } from "@/lib/mock-data";
+import { getHerdAnimals } from "@/lib/herd-data";
 
-export default function HerdPage() {
+export default async function HerdPage() {
+  const animals = await getHerdAnimals();
+
+  // Stats derived from the loaded herd, so they match whichever source
+  // (Supabase or mock) supplied the data.
+  const stats = {
+    total: animals.length,
+    securises: animals.filter((a) => a.security.status === "securise").length,
+    enAlerte: animals.filter((a) => a.security.status === "alerte").length,
+    aSurveiller: animals.filter((a) => a.health.status !== "sain").length,
+  };
+
   return (
     <div className="space-y-6">
       <header>
@@ -15,10 +26,10 @@ export default function HerdPage() {
       {/* Quick stats */}
       <section aria-label="Statistiques du troupeau">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <SummaryCard icon="🐄" value={herdStats.total} label="Total animaux" tone="neutral" />
-          <SummaryCard icon="🟢" value={herdStats.securises} label="Sécurisés" tone="ok" />
-          <SummaryCard icon="🔴" value={herdStats.enAlerte} label="En alerte" tone="alert" />
-          <SummaryCard icon="💉" value={herdStats.aSurveiller} label="À surveiller" tone="warning" />
+          <SummaryCard icon="🐄" value={stats.total} label="Total animaux" tone="neutral" />
+          <SummaryCard icon="🟢" value={stats.securises} label="Sécurisés" tone="ok" />
+          <SummaryCard icon="🔴" value={stats.enAlerte} label="En alerte" tone="alert" />
+          <SummaryCard icon="💉" value={stats.aSurveiller} label="À surveiller" tone="warning" />
         </div>
       </section>
 

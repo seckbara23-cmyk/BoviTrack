@@ -32,8 +32,28 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  // Touch the user to trigger a token refresh when needed.
-  await supabase.auth.getUser();
+  // Refresh the session and read the current user.
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Route gating: unauthenticated users are sent to /login. Public paths
+  // (the login screen and the logout handler) are always allowed.
+  const path = request.nextUrl.pathname;
+  const isPublic = path === "/login" || path === "/logout";
+
+  if (!user && !isPublic) {
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = "/login";
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // Already signed in? Skip the login screen.
+  if (user && path === "/login") {
+    const homeUrl = request.nextUrl.clone();
+    homeUrl.pathname = "/dashboard";
+    return NextResponse.redirect(homeUrl);
+  }
 
   return response;
 }

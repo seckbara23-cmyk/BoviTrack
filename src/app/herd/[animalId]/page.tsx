@@ -9,22 +9,12 @@ import { HealthPanel } from "@/components/herd/HealthPanel";
 import { ReproductionPanel } from "@/components/herd/ReproductionPanel";
 import { SalesPanel } from "@/components/herd/SalesPanel";
 import { ContactButton } from "@/components/security/ContactButton";
-import {
-  getAnimalById,
-  animals,
-  animalAge,
-  locationRiskMeta,
-  eventTypeMeta,
-  getCareByAnimal,
-  getVaccinesByAnimal,
-  getBreedingByFemale,
-  getBreedingByFather,
-  getBirthsByMother,
-  getBirthsByFather,
-  getSalesByAnimal,
-} from "@/lib/mock-data";
+import { animals, animalAge, locationRiskMeta, eventTypeMeta } from "@/lib/mock-data";
+import { getHerdAnimal } from "@/lib/herd-data";
 
 export function generateStaticParams() {
+  // Prebuild the known mock codes; other codes (e.g. live Supabase animals)
+  // render on demand (dynamicParams defaults to true).
   return animals.map((a) => ({ animalId: a.id }));
 }
 
@@ -34,21 +24,25 @@ export default async function AnimalProfilePage({
   params: Promise<{ animalId: string }>;
 }) {
   const { animalId } = await params;
-  const animal = getAnimalById(animalId);
+  const detail = await getHerdAnimal(animalId);
 
-  if (!animal) {
+  if (!detail) {
     notFound();
   }
 
+  const {
+    animal,
+    care,
+    vaccines,
+    breedingAsFemale,
+    breedingAsFather,
+    birthsAsMother,
+    birthsAsFather,
+    sales,
+  } = detail;
+
   const { identity, ownership, location } = animal;
   const risk = locationRiskMeta[location.risk];
-  const care = getCareByAnimal(animal.id);
-  const vaccines = getVaccinesByAnimal(animal.id);
-  const breedingAsFemale = getBreedingByFemale(animal.id);
-  const breedingAsFather = getBreedingByFather(animal.id);
-  const birthsAsMother = getBirthsByMother(animal.id);
-  const birthsAsFather = getBirthsByFather(animal.id);
-  const sales = getSalesByAnimal(animal.id);
 
   return (
     <div className="space-y-5">

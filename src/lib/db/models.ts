@@ -62,6 +62,7 @@ export type SaleRecordInsert = Insert<"sale_records">;
  */
 export type AnimalWithRelations = Animal & {
   owner: Owner | null;
+  farm: Farm | null;
   locations: Location[];
   security_alerts: SecurityAlert[];
   care_records: CareRecord[];
