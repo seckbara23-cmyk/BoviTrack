@@ -6,7 +6,10 @@ import { StatusBadge } from "@/components/security/StatusBadge";
 import Link from "next/link";
 import {
   dashboardActions,
-  herdSummary,
+  herdStats,
+  careKpis,
+  vaccinationsPending,
+  activeAlertCount,
   upcomingTasks,
   theftAlerts,
 } from "@/lib/mock-data";
@@ -31,33 +34,21 @@ export default function DashboardPage() {
       {/* Anti-theft — highest-priority feature, loudest on the screen */}
       <EmergencyTile />
 
-      {/* Summary cards */}
+      {/* Summary cards — tappable, reflecting live mock data */}
       <section aria-label="Résumé du troupeau">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <SummaryCard
-            icon="🐄"
-            value={herdSummary.totalAnimaux}
-            label="Total animaux"
-            tone="ok"
-          />
-          <SummaryCard
-            icon="🤒"
-            value={herdSummary.animauxMalades}
-            label="Animaux malades"
-            tone="alert"
-          />
-          <SummaryCard
-            icon="🧪"
-            value={herdSummary.vaccinationsAFaire}
-            label="Vaccins à faire"
-            tone="warning"
-          />
-          <SummaryCard
-            icon="🚨"
-            value={herdSummary.alertesVol}
-            label="Alertes vol"
-            tone="alert"
-          />
+          <Link href="/herd">
+            <SummaryCard icon="🐄" value={herdStats.total} label="Total animaux" tone="ok" />
+          </Link>
+          <Link href="/care">
+            <SummaryCard icon="🤒" value={careKpis.animauxMalades} label="Animaux malades" tone="alert" />
+          </Link>
+          <Link href="/vaccines">
+            <SummaryCard icon="🧪" value={vaccinationsPending} label="Vaccins à faire" tone="warning" />
+          </Link>
+          <Link href="/alerts">
+            <SummaryCard icon="🚨" value={activeAlertCount} label="Alertes vol" tone="alert" />
+          </Link>
         </div>
       </section>
 

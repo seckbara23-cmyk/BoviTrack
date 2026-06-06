@@ -433,16 +433,340 @@ export function animalAge(birthYear: number): number {
 }
 
 /* ------------------------------------------------------------------ */
-/* Dashboard tiles                                                     */
+/* Santé & Vaccins — Phase 3 (attached to the Animal entity)           */
 /* ------------------------------------------------------------------ */
 
-/** Headline figures for the dashboard summary cards. */
-export const herdSummary = {
-  totalAnimaux: 128,
-  animauxMalades: 4,
-  vaccinationsAFaire: 12,
-  alertesVol: 2,
+/** Vets & field agents who deliver care and vaccinations. */
+const V = {
+  drAwa: { name: "Dr Awa Ndiaye", phone: "+221 77 640 22 18", role: "Vétérinaire" } as Contact,
+  drCheikh: { name: "Dr Cheikh Fall", phone: "+221 78 911 47 65", role: "Vétérinaire" } as Contact,
+  agentOusmane: { name: "Ousmane Sow", phone: "+221 77 512 04 88", role: "Agent" } as Contact,
+  agentAmadou: { name: "Amadou Diallo", phone: "+221 76 207 41 65", role: "Agent" } as Contact,
 };
+
+/* ---- Care / Soins ---- */
+
+export type CareStatus = "a_faire" | "en_cours" | "termine" | "urgent" | "suivi";
+
+export const careStatusMeta: Record<
+  CareStatus,
+  { label: string; emoji: string; className: string }
+> = {
+  a_faire: { label: "À faire", emoji: "📋", className: "bg-sand-dark text-earth" },
+  en_cours: { label: "En cours", emoji: "💊", className: "bg-gold/15 text-gold-dark" },
+  termine: { label: "Terminé", emoji: "✅", className: "bg-green-50 text-green" },
+  urgent: { label: "Urgent", emoji: "🚨", className: "bg-alert/10 text-alert" },
+  suivi: { label: "Suivi requis", emoji: "🔁", className: "bg-gold/15 text-gold-dark" },
+};
+
+export type CareRecord = {
+  id: string; // SOIN-2026-001
+  animalId: string;
+  category: string; // Fièvre, Boiterie, Plaie…
+  icon: string;
+  reason: string; // diagnosis / reason
+  symptoms: string[];
+  treatment: string;
+  vet: Contact;
+  date: string;
+  status: CareStatus;
+  followUp?: string;
+  documents?: string[];
+};
+
+export const careRecords: CareRecord[] = [
+  {
+    id: "SOIN-2026-001",
+    animalId: "SN-BOV-2026-0003",
+    category: "Infection",
+    icon: "🤒",
+    reason: "Infection respiratoire",
+    symptoms: ["Fièvre", "Toux", "Perte d'appétit"],
+    treatment: "Antibiotique (5 jours) + repos",
+    vet: V.drAwa,
+    date: "Aujourd'hui · 08:30",
+    status: "urgent",
+    followUp: "Contrôle de la température dans 3 jours.",
+    documents: ["Ordonnance", "Analyse"],
+  },
+  {
+    id: "SOIN-2026-002",
+    animalId: "SN-BOV-2026-0002",
+    category: "Boiterie",
+    icon: "🦵",
+    reason: "Boiterie patte avant droite",
+    symptoms: ["Boiterie", "Gonflement léger"],
+    treatment: "Anti-inflammatoire + repos 1 semaine",
+    vet: V.drCheikh,
+    date: "02 juin 2026",
+    status: "en_cours",
+    followUp: "Réexaminer après 7 jours de repos.",
+  },
+  {
+    id: "SOIN-2026-003",
+    animalId: "SN-BOV-2026-0006",
+    category: "Plaie",
+    icon: "🩹",
+    reason: "Plaie ouverte au flanc",
+    symptoms: ["Plaie", "Saignement léger"],
+    treatment: "Désinfection + pansement",
+    vet: V.drAwa,
+    date: "01 juin 2026",
+    status: "suivi",
+    followUp: "Changer le pansement tous les 2 jours.",
+  },
+  {
+    id: "SOIN-2026-004",
+    animalId: "SN-BOV-2026-0001",
+    category: "Suivi gestation",
+    icon: "🤰",
+    reason: "Suivi de gestation",
+    symptoms: [],
+    treatment: "Contrôle prénatal + complément minéral",
+    vet: V.drCheikh,
+    date: "08 juin 2026",
+    status: "a_faire",
+    followUp: "Examen prénatal programmé.",
+  },
+  {
+    id: "SOIN-2026-005",
+    animalId: "SN-BOV-2026-0004",
+    category: "Parasites",
+    icon: "🐛",
+    reason: "Parasites externes (tiques)",
+    symptoms: ["Tiques", "Démangeaisons"],
+    treatment: "Traitement acaricide",
+    vet: V.agentOusmane,
+    date: "20 mai 2026",
+    status: "termine",
+  },
+  {
+    id: "SOIN-2026-006",
+    animalId: "SN-BOV-2026-0005",
+    category: "Fièvre",
+    icon: "🌡️",
+    reason: "Fièvre légère",
+    symptoms: ["Fièvre"],
+    treatment: "Antipyrétique + hydratation",
+    vet: V.drAwa,
+    date: "15 mai 2026",
+    status: "termine",
+  },
+  {
+    id: "SOIN-2026-007",
+    animalId: "SN-BOV-2026-0003",
+    category: "Infection",
+    icon: "🤒",
+    reason: "Suivi de l'infection respiratoire",
+    symptoms: ["Fièvre résiduelle"],
+    treatment: "Poursuite antibiotique",
+    vet: V.drCheikh,
+    date: "Aujourd'hui · 10:15",
+    status: "suivi",
+    followUp: "Arrêt du traitement si température normale.",
+  },
+  {
+    id: "SOIN-2026-008",
+    animalId: "SN-BOV-2026-0005",
+    category: "Parasites",
+    icon: "🐛",
+    reason: "Parasites externes",
+    symptoms: ["Tiques"],
+    treatment: "Traitement acaricide à programmer",
+    vet: V.agentAmadou,
+    date: "10 juin 2026",
+    status: "a_faire",
+  },
+];
+
+export function getCareById(id: string): CareRecord | undefined {
+  return careRecords.find((c) => c.id === id);
+}
+
+export function getCareByAnimal(animalId: string): CareRecord[] {
+  return careRecords.filter((c) => c.animalId === animalId);
+}
+
+export const careKpis = {
+  animauxMalades: new Set(
+    careRecords
+      .filter((c) => c.status === "urgent" || c.status === "en_cours")
+      .map((c) => c.animalId),
+  ).size,
+  aujourdhui: careRecords.filter((c) => c.date.includes("Aujourd'hui")).length,
+  enCours: careRecords.filter(
+    (c) => c.status === "en_cours" || c.status === "suivi",
+  ).length,
+  vetAAppeler: careRecords.filter((c) => c.status === "urgent").length,
+};
+
+/* ---- Vaccines / Vaccins ---- */
+
+export type VaccineStatus = "a_faire" | "en_retard" | "fait" | "programme";
+
+export const vaccineStatusMeta: Record<
+  VaccineStatus,
+  { label: string; emoji: string; className: string }
+> = {
+  a_faire: { label: "À faire", emoji: "📋", className: "bg-gold/15 text-gold-dark" },
+  en_retard: { label: "En retard", emoji: "⏰", className: "bg-alert/10 text-alert" },
+  fait: { label: "Fait", emoji: "✅", className: "bg-green-50 text-green" },
+  programme: { label: "Programmé", emoji: "📅", className: "bg-sand-dark text-earth" },
+};
+
+export type VaccineRecord = {
+  id: string; // VAC-2026-001
+  animalId: string;
+  name: string;
+  icon: string;
+  dueDate: string; // planned date
+  doneDate?: string; // actual date if done
+  agent: Contact;
+  batchNumber?: string;
+  nextDose?: string;
+  notes?: string;
+  status: VaccineStatus;
+  location: Location;
+};
+
+export const vaccineRecords: VaccineRecord[] = [
+  {
+    id: "VAC-2026-001",
+    animalId: "SN-BOV-2026-0001",
+    name: "Vaccin PPCB",
+    icon: "🧪",
+    dueDate: "Sept. 2026",
+    agent: V.drAwa,
+    nextDose: "Sept. 2027",
+    notes: "Campagne annuelle de péripneumonie.",
+    status: "programme",
+    location: "Linguère",
+  },
+  {
+    id: "VAC-2026-002",
+    animalId: "SN-BOV-2026-0002",
+    name: "Vaccin pasteurellose",
+    icon: "💉",
+    dueDate: "20 mai 2026",
+    agent: V.drCheikh,
+    notes: "Rappel non effectué — à régulariser.",
+    status: "en_retard",
+    location: "Tambacounda",
+  },
+  {
+    id: "VAC-2026-003",
+    animalId: "SN-BOV-2026-0003",
+    name: "Vaccin PPCB",
+    icon: "🧪",
+    dueDate: "Cette semaine",
+    agent: V.agentAmadou,
+    status: "a_faire",
+    location: "Kaolack",
+  },
+  {
+    id: "VAC-2026-004",
+    animalId: "SN-BOV-2026-0004",
+    name: "Déparasitage",
+    icon: "💊",
+    dueDate: "10 mars 2026",
+    doneDate: "10 mars 2026",
+    agent: V.agentOusmane,
+    batchNumber: "LOT-DEP-2026-B07",
+    nextDose: "Sept. 2026",
+    status: "fait",
+    location: "Thiès",
+  },
+  {
+    id: "VAC-2026-005",
+    animalId: "SN-BOV-2026-0005",
+    name: "Vaccin PPCB",
+    icon: "🧪",
+    dueDate: "18 mars 2026",
+    doneDate: "18 mars 2026",
+    agent: V.drAwa,
+    batchNumber: "LOT-PPCB-2026-A14",
+    nextDose: "Sept. 2026",
+    status: "fait",
+    location: "Linguère",
+  },
+  {
+    id: "VAC-2026-006",
+    animalId: "SN-BOV-2026-0006",
+    name: "Rappel annuel (fièvre aphteuse)",
+    icon: "💉",
+    dueDate: "01 juin 2026",
+    agent: V.drCheikh,
+    notes: "Rappel en retard — priorité haute.",
+    status: "en_retard",
+    location: "Matam",
+  },
+  {
+    id: "VAC-2026-007",
+    animalId: "SN-BOV-2026-0001",
+    name: "Déparasitage",
+    icon: "💊",
+    dueDate: "02 mai 2026",
+    doneDate: "02 mai 2026",
+    agent: V.agentOusmane,
+    batchNumber: "LOT-DEP-2026-B07",
+    nextDose: "Nov. 2026",
+    status: "fait",
+    location: "Linguère",
+  },
+  {
+    id: "VAC-2026-008",
+    animalId: "SN-BOV-2026-0002",
+    name: "Vaccin PPCB",
+    icon: "🧪",
+    dueDate: "Cette semaine",
+    agent: V.agentAmadou,
+    status: "a_faire",
+    location: "Tambacounda",
+  },
+  {
+    id: "VAC-2026-009",
+    animalId: "SN-BOV-2026-0003",
+    name: "Vaccin pasteurellose",
+    icon: "💉",
+    dueDate: "Juillet 2026",
+    agent: V.drAwa,
+    status: "programme",
+    location: "Kaolack",
+  },
+  {
+    id: "VAC-2026-010",
+    animalId: "SN-BOV-2026-0004",
+    name: "Rappel annuel (fièvre aphteuse)",
+    icon: "💉",
+    dueDate: "Sept. 2026",
+    agent: V.drCheikh,
+    status: "a_faire",
+    location: "Thiès",
+  },
+];
+
+export function getVaccineById(id: string): VaccineRecord | undefined {
+  return vaccineRecords.find((v) => v.id === id);
+}
+
+export function getVaccinesByAnimal(animalId: string): VaccineRecord[] {
+  return vaccineRecords.filter((v) => v.animalId === animalId);
+}
+
+export const vaccineKpis = {
+  aFaire: vaccineRecords.filter((v) => v.status === "a_faire").length,
+  enRetard: vaccineRecords.filter((v) => v.status === "en_retard").length,
+  cetteSemaine: vaccineRecords.filter((v) => v.dueDate.includes("Cette semaine"))
+    .length,
+  aJour: vaccineRecords.filter((v) => v.status === "fait").length,
+};
+
+/** Vaccinations still pending attention (à faire + en retard). */
+export const vaccinationsPending = vaccineKpis.aFaire + vaccineKpis.enRetard;
+
+/* ------------------------------------------------------------------ */
+/* Dashboard tiles                                                     */
+/* ------------------------------------------------------------------ */
 
 export type DashboardAction = {
   href: string;
@@ -460,8 +784,8 @@ export type DashboardAction = {
 export const dashboardActions: DashboardAction[] = [
   { href: "/herd", label: "Mon troupeau", icon: "🐄", accent: "from-green to-green-dark text-white" },
   { href: "/location", label: "Localisation", icon: "📍", accent: "from-white to-sand-dark text-earth" },
-  { href: "/care", label: "Soins", icon: "💉", accent: "from-white to-sand-dark text-earth" },
-  { href: "/vaccines", label: "Vaccins", icon: "🧪", badge: 12, accent: "from-white to-sand-dark text-earth" },
+  { href: "/care", label: "Soins", icon: "💉", badge: careKpis.vetAAppeler, accent: "from-white to-sand-dark text-earth" },
+  { href: "/vaccines", label: "Vaccins", icon: "🧪", badge: vaccinationsPending, accent: "from-white to-sand-dark text-earth" },
   { href: "/births", label: "Naissances", icon: "👶", accent: "from-white to-sand-dark text-earth" },
   { href: "/sales", label: "Ventes", icon: "💰", accent: "from-white to-sand-dark text-earth" },
   { href: "/reports", label: "Résultats", icon: "📊", accent: "from-white to-sand-dark text-earth" },

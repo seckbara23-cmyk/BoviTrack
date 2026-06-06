@@ -2,14 +2,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SecurityPanel } from "@/components/herd/SecurityPanel";
 import { AnimalQuickActions } from "@/components/herd/AnimalQuickActions";
+import { HealthPanel } from "@/components/herd/HealthPanel";
 import { ContactButton } from "@/components/security/ContactButton";
 import {
   getAnimalById,
   animals,
   animalAge,
-  healthMeta,
   locationRiskMeta,
   eventTypeMeta,
+  getCareByAnimal,
+  getVaccinesByAnimal,
 } from "@/lib/mock-data";
 
 export function generateStaticParams() {
@@ -57,9 +59,10 @@ export default async function AnimalProfilePage({
     notFound();
   }
 
-  const { identity, ownership, health, reproduction, location } = animal;
-  const healthInfo = healthMeta[health.status];
+  const { identity, ownership, reproduction, location } = animal;
   const risk = locationRiskMeta[location.risk];
+  const care = getCareByAnimal(animal.id);
+  const vaccines = getVaccinesByAnimal(animal.id);
   const mother = reproduction.motherId
     ? getAnimalById(reproduction.motherId)
     : undefined;
@@ -174,25 +177,8 @@ export default async function AnimalProfilePage({
         </Link>
       </Panel>
 
-      {/* Health summary (placeholder) */}
-      <Panel icon="💉" title="Santé">
-        <dl className="grid grid-cols-2 gap-3 text-sm">
-          <div className="rounded-2xl bg-sand p-3 leading-tight">
-            <dt className="text-xs font-semibold text-earth/50">Statut</dt>
-            <dd className="mt-1">
-              <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${healthInfo.className}`}>
-                <span aria-hidden>{healthInfo.emoji}</span>
-                {healthInfo.label}
-              </span>
-            </dd>
-          </div>
-          <Field label="Dernier traitement" value={health.lastTreatment ?? "—"} />
-          <Field label="Prochain vaccin" value={health.nextVaccine ?? "—"} />
-        </dl>
-        <p className="mt-3 rounded-full bg-gold/15 px-4 py-1.5 text-center text-xs font-medium text-gold-dark">
-          🛠️ Module Santé complet — Phase 3
-        </p>
-      </Panel>
+      {/* Health summary — real linked care & vaccine records (Phase 3) */}
+      <HealthPanel animal={animal} care={care} vaccines={vaccines} />
 
       {/* Reproduction summary (placeholder) */}
       <Panel icon="❤️" title="Reproduction">
