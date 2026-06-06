@@ -19,10 +19,14 @@ alone.
 
 ## 2. Offline-first
 
-Connectivity in pastoral zones is intermittent. The app should function without a
-live connection: data is available, actions can be taken, and changes sync when
-the network returns. Loss of signal must never block a critical action such as
-reporting a stolen animal.
+Connectivity in pastoral zones is intermittent or absent — **most herders have no
+reliable internet**, and transhumance takes herds far from any tower for weeks.
+Offline is therefore the **default**, not a fallback: the device is the source of
+truth in the moment, and the cloud is an additive convergence layer that syncs
+when a connection returns. Loss of signal must **never** block a critical action —
+above all, **a herder must be able to report an animal missing with zero
+internet**. Cloud sync must enhance the product, not gate field work. See
+[offline-first-architecture.md](./offline-first-architecture.md).
 
 ## 3. Mobile-first
 
@@ -87,7 +91,33 @@ hubs — for example bridging LoRa/RFID devices to the cloud and enabling
 offline-first sync in the field. Data and sync models should leave room for such
 a gateway.
 
+## 13. Field-first, internet-independent workflows
+
+The herder in the grazing zone — not the office — is the design centre. Every
+core workflow (register/identify an animal, report theft, note position, record a
+birth/treatment/sale) must complete **on-device with no internet** and sync
+later. When a flow is designed, the first question is "does this work with zero
+signal?". A workflow that requires connectivity to function is, for the field
+layer, a broken workflow.
+
+## 14. BoviTrack Field / BoviTrack Management distinction
+
+BoviTrack is **two complementary layers over one data model** (Animal is the core
+entity):
+
+- **BoviTrack Field** — offline-first mobile experience for **herders & field
+  agents**: icon-first, voice-ready, internet-independent capture.
+- **BoviTrack Management** — connected web/admin dashboard for **owners,
+  cooperatives, veterinarians, organizations and future government
+  stakeholders**: oversight, reports, campaigns, administration.
+
+Both share the same animals, and **every offline record must eventually sync to
+the animal's single timeline**. Features should be designed knowing which layer
+they serve — and Field must never be compromised to suit Management.
+
 ---
 
 _These are principles, not a backlog. This document describes intent and
-constraints only; it does not implement or schedule any feature._
+constraints only; it does not implement or schedule any feature. For the layered
+architecture and roadmap, see
+[offline-first-architecture.md](./offline-first-architecture.md)._
