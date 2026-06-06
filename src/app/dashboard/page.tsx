@@ -70,22 +70,24 @@ export default function DashboardPage() {
           </h2>
           <ul className="space-y-2">
             {upcomingTasks.map((task) => (
-              <li
-                key={task.id}
-                className="flex items-center gap-3 rounded-2xl bg-sand p-3"
-              >
-                <span className="text-2xl" aria-hidden>
-                  {task.icon}
-                </span>
-                <div className="flex-1 leading-tight">
-                  <div className="text-sm font-semibold text-earth">
-                    {task.label}
+              <li key={task.id}>
+                <Link
+                  href={task.href}
+                  className="flex items-center gap-3 rounded-2xl bg-sand p-3"
+                >
+                  <span className="text-2xl" aria-hidden>
+                    {task.icon}
+                  </span>
+                  <div className="flex-1 leading-tight">
+                    <div className="text-sm font-semibold text-earth">
+                      {task.label}
+                    </div>
+                    <div className="text-xs text-earth/60">{task.due}</div>
                   </div>
-                  <div className="text-xs text-earth/60">{task.due}</div>
-                </div>
-                <span aria-hidden className="text-earth/40">
-                  ›
-                </span>
+                  <span aria-hidden className="text-earth/40">
+                    ›
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>

@@ -765,6 +765,414 @@ export const vaccineKpis = {
 export const vaccinationsPending = vaccineKpis.aFaire + vaccineKpis.enRetard;
 
 /* ------------------------------------------------------------------ */
+/* Reproduction & Naissances — Phase 4 (attached to the Animal entity) */
+/* ------------------------------------------------------------------ */
+
+/* ---- Reproduction / Breeding ---- */
+
+export type BreedingStatus =
+  | "a_confirmer"
+  | "gestation"
+  | "a_surveiller"
+  | "mise_bas_proche"
+  | "terminee"
+  | "echec";
+
+export const breedingStatusMeta: Record<
+  BreedingStatus,
+  { label: string; emoji: string; className: string }
+> = {
+  a_confirmer: { label: "À confirmer", emoji: "🔎", className: "bg-sand-dark text-earth" },
+  gestation: { label: "Gestation", emoji: "🤰", className: "bg-green-50 text-green" },
+  a_surveiller: { label: "À surveiller", emoji: "⚠️", className: "bg-gold/15 text-gold-dark" },
+  mise_bas_proche: { label: "Mise bas proche", emoji: "🍼", className: "bg-gold/15 text-gold-dark" },
+  terminee: { label: "Terminée", emoji: "✅", className: "bg-green-50 text-green" },
+  echec: { label: "Échec", emoji: "❌", className: "bg-alert/10 text-alert" },
+};
+
+export type BreedingMethod = "Saillie naturelle" | "Insémination";
+
+export type BreedingRecord = {
+  id: string; // REPRO-2026-001
+  femaleId: string;
+  femaleName: string;
+  femaleBreed: Breed;
+  fatherId?: string; // herd male, if known
+  bullName?: string; // external bull, if not in the herd
+  method: BreedingMethod;
+  matingDate: string;
+  status: BreedingStatus;
+  expectedBirth?: string;
+  overdue?: boolean;
+  followUp?: string;
+  vet: Contact;
+  ownerName: string;
+  herderName: string;
+  location: Location;
+  timeline: { id: string; time: string; label: string; icon: string }[];
+};
+
+export const breedingRecords: BreedingRecord[] = [
+  {
+    id: "REPRO-2026-001",
+    femaleId: "SN-BOV-2026-0001",
+    femaleName: "Fanta",
+    femaleBreed: "Gobra",
+    fatherId: "SN-BOV-2026-0004",
+    method: "Insémination",
+    matingDate: "Nov. 2025",
+    status: "gestation",
+    expectedBirth: "Août 2026",
+    followUp: "Suivi mensuel — gestation normale.",
+    vet: V.drCheikh,
+    ownerName: "Moussa Ba",
+    herderName: "Abdou Diop",
+    location: "Linguère",
+    timeline: [
+      { id: "r1", time: "Nov. 2025", label: "Reproduction enregistrée (insémination)", icon: "📝" },
+      { id: "r2", time: "Jan. 2026", label: "Gestation confirmée", icon: "🤰" },
+      { id: "r3", time: "Avr. 2026", label: "Suivi vétérinaire — RAS", icon: "🩺" },
+      { id: "r4", time: "Août 2026", label: "Mise bas prévue", icon: "🍼" },
+    ],
+  },
+  {
+    id: "REPRO-2026-002",
+    femaleId: "SN-BOV-2026-0007",
+    femaleName: "Aïssata",
+    femaleBreed: "Ndama",
+    fatherId: "SN-BOV-2026-0002",
+    method: "Saillie naturelle",
+    matingDate: "Sept. 2025",
+    status: "mise_bas_proche",
+    expectedBirth: "Juin 2026",
+    overdue: true,
+    followUp: "Mise bas imminente — surveiller jour et nuit.",
+    vet: V.drAwa,
+    ownerName: "Ousmane Sow",
+    herderName: "Lamine Cissé",
+    location: "Dahra",
+    timeline: [
+      { id: "r1", time: "Sept. 2025", label: "Reproduction enregistrée (saillie)", icon: "📝" },
+      { id: "r2", time: "Nov. 2025", label: "Gestation confirmée", icon: "🤰" },
+      { id: "r3", time: "Mai 2026", label: "Suivi vétérinaire — mise bas proche", icon: "🩺" },
+    ],
+  },
+  {
+    id: "REPRO-2026-003",
+    femaleId: "SN-BOV-2026-0008",
+    femaleName: "Maïmouna",
+    femaleBreed: "Montbéliarde",
+    bullName: "Taureau Montbéliard (station)",
+    method: "Insémination",
+    matingDate: "Jan. 2026",
+    status: "a_surveiller",
+    expectedBirth: "Oct. 2026",
+    followUp: "Amaigrissement léger — renforcer l'alimentation.",
+    vet: V.drCheikh,
+    ownerName: "Awa Ndiaye",
+    herderName: "Modou Faye",
+    location: "Thiès",
+    timeline: [
+      { id: "r1", time: "Jan. 2026", label: "Reproduction enregistrée (insémination)", icon: "📝" },
+      { id: "r2", time: "Mars 2026", label: "Gestation confirmée", icon: "🤰" },
+      { id: "r3", time: "Mai 2026", label: "Suivi vétérinaire — à surveiller", icon: "🩺" },
+    ],
+  },
+  {
+    id: "REPRO-2026-004",
+    femaleId: "SN-BOV-2026-0003",
+    femaleName: "Penda",
+    femaleBreed: "Djakoré",
+    bullName: "Taureau Djakoré communautaire",
+    method: "Saillie naturelle",
+    matingDate: "Mars 2026",
+    status: "a_confirmer",
+    vet: V.drAwa,
+    ownerName: "Amadou Diallo",
+    herderName: "Mamadou Ndao",
+    location: "Kaolack",
+    timeline: [
+      { id: "r1", time: "Mars 2026", label: "Reproduction enregistrée (saillie)", icon: "📝" },
+      { id: "r2", time: "Avr. 2026", label: "Diagnostic de gestation à réaliser", icon: "🔎" },
+    ],
+  },
+  {
+    id: "REPRO-2026-005",
+    femaleId: "SN-BOV-2026-0009",
+    femaleName: "Bineta",
+    femaleBreed: "Guzerat",
+    fatherId: "SN-BOV-2026-0006",
+    method: "Saillie naturelle",
+    matingDate: "Sept. 2025",
+    status: "terminee",
+    expectedBirth: "Juin 2026",
+    followUp: "Mise bas réussie — veau enregistré.",
+    vet: V.agentAmadou,
+    ownerName: "Moussa Ba",
+    herderName: "Saliou Kane",
+    location: "Matam",
+    timeline: [
+      { id: "r1", time: "Sept. 2025", label: "Reproduction enregistrée (saillie)", icon: "📝" },
+      { id: "r2", time: "Nov. 2025", label: "Gestation confirmée", icon: "🤰" },
+      { id: "r3", time: "02 juin 2026", label: "Mise bas — veau vivant (NAIS-2026-001)", icon: "👶" },
+      { id: "r4", time: "02 juin 2026", label: "Reproduction terminée", icon: "✅" },
+    ],
+  },
+  {
+    id: "REPRO-2026-006",
+    femaleId: "SN-BOV-2026-0005",
+    femaleName: "Khady",
+    femaleBreed: "Gobra",
+    bullName: "Taureau Gobra communautaire",
+    method: "Saillie naturelle",
+    matingDate: "Fév. 2026",
+    status: "echec",
+    followUp: "Gestation non confirmée — reprogrammer une saillie.",
+    vet: V.drAwa,
+    ownerName: "Cheikh Fall",
+    herderName: "Ibrahima Sy",
+    location: "Linguère",
+    timeline: [
+      { id: "r1", time: "Fév. 2026", label: "Reproduction enregistrée (saillie)", icon: "📝" },
+      { id: "r2", time: "Avr. 2026", label: "Diagnostic négatif — échec", icon: "❌" },
+    ],
+  },
+  {
+    id: "REPRO-2026-007",
+    femaleId: "SN-BOV-2026-0008",
+    femaleName: "Maïmouna",
+    femaleBreed: "Montbéliarde",
+    bullName: "Taureau Montbéliard (station)",
+    method: "Insémination",
+    matingDate: "Août 2025",
+    status: "terminee",
+    expectedBirth: "Mai 2026",
+    followUp: "Mise bas réussie — veau enregistré.",
+    vet: V.agentOusmane,
+    ownerName: "Awa Ndiaye",
+    herderName: "Modou Faye",
+    location: "Thiès",
+    timeline: [
+      { id: "r1", time: "Août 2025", label: "Reproduction enregistrée (insémination)", icon: "📝" },
+      { id: "r2", time: "Oct. 2025", label: "Gestation confirmée", icon: "🤰" },
+      { id: "r3", time: "20 mai 2026", label: "Mise bas — veau vivant (NAIS-2026-002)", icon: "👶" },
+      { id: "r4", time: "20 mai 2026", label: "Reproduction terminée", icon: "✅" },
+    ],
+  },
+  {
+    id: "REPRO-2026-008",
+    femaleId: "SN-BOV-2026-0010",
+    femaleName: "Coumba",
+    femaleBreed: "Djakoré",
+    fatherId: "SN-BOV-2026-0002",
+    method: "Saillie naturelle",
+    matingDate: "Fév. 2026",
+    status: "gestation",
+    expectedBirth: "Nov. 2026",
+    followUp: "Gestation confirmée — suivi normal.",
+    vet: V.drCheikh,
+    ownerName: "Amadou Diallo",
+    herderName: "Mamadou Ndao",
+    location: "Kaolack",
+    timeline: [
+      { id: "r1", time: "Fév. 2026", label: "Reproduction enregistrée (saillie)", icon: "📝" },
+      { id: "r2", time: "Avr. 2026", label: "Gestation confirmée", icon: "🤰" },
+    ],
+  },
+];
+
+export function getBreedingById(id: string): BreedingRecord | undefined {
+  return breedingRecords.find((b) => b.id === id);
+}
+
+export function getBreedingByFemale(animalId: string): BreedingRecord[] {
+  return breedingRecords.filter((b) => b.femaleId === animalId);
+}
+
+export function getBreedingByFather(animalId: string): BreedingRecord[] {
+  return breedingRecords.filter((b) => b.fatherId === animalId);
+}
+
+const breedingActive = (s: BreedingStatus) =>
+  s === "gestation" || s === "a_surveiller" || s === "mise_bas_proche";
+
+export const breedingKpis = {
+  gestationsEnCours: breedingRecords.filter((b) => b.status === "gestation").length,
+  misesBasPrevues: breedingRecords.filter(
+    (b) => breedingActive(b.status) && b.expectedBirth,
+  ).length,
+  aSurveiller: breedingRecords.filter(
+    (b) => b.status === "a_surveiller" || b.status === "mise_bas_proche",
+  ).length,
+  retards: breedingRecords.filter((b) => b.overdue).length,
+};
+
+/* ---- Naissances / Births ---- */
+
+export type BirthStatus = "a_enregistrer" | "enregistre" | "suivi_requis" | "mort_ne";
+
+export const birthStatusMeta: Record<
+  BirthStatus,
+  { label: string; emoji: string; className: string }
+> = {
+  a_enregistrer: { label: "À enregistrer", emoji: "📋", className: "bg-gold/15 text-gold-dark" },
+  enregistre: { label: "Enregistré", emoji: "✅", className: "bg-green-50 text-green" },
+  suivi_requis: { label: "Suivi requis", emoji: "🔁", className: "bg-gold/15 text-gold-dark" },
+  mort_ne: { label: "Mort-né", emoji: "🔴", className: "bg-alert/10 text-alert" },
+};
+
+export type BirthRecord = {
+  id: string; // NAIS-2026-001
+  calfId?: string; // SN-BOV-2026-1001 (none if mort-né / not yet registered)
+  calfName?: string;
+  motherId: string;
+  motherName: string;
+  fatherId?: string;
+  fatherName?: string;
+  birthDate: string;
+  sex: Sex;
+  breed: Breed;
+  location: Location;
+  ownerName: string;
+  herderName: string;
+  status: BirthStatus;
+  healthNote: string;
+  breedingId?: string;
+  icon: string;
+};
+
+export const birthRecords: BirthRecord[] = [
+  {
+    id: "NAIS-2026-001",
+    calfId: "SN-BOV-2026-1001",
+    calfName: "Sira",
+    motherId: "SN-BOV-2026-0009",
+    motherName: "Bineta",
+    fatherId: "SN-BOV-2026-0006",
+    fatherName: "Yero",
+    birthDate: "02 juin 2026",
+    sex: "F",
+    breed: "Guzerat",
+    location: "Matam",
+    ownerName: "Moussa Ba",
+    herderName: "Saliou Kane",
+    status: "enregistre",
+    healthNote: "Veau vivant, en bonne santé.",
+    breedingId: "REPRO-2026-005",
+    icon: "🐮",
+  },
+  {
+    id: "NAIS-2026-002",
+    calfId: "SN-BOV-2026-1002",
+    calfName: "Modou",
+    motherId: "SN-BOV-2026-0008",
+    motherName: "Maïmouna",
+    fatherName: "Taureau Montbéliard (station)",
+    birthDate: "20 mai 2026",
+    sex: "M",
+    breed: "Montbéliarde",
+    location: "Thiès",
+    ownerName: "Awa Ndiaye",
+    herderName: "Modou Faye",
+    status: "enregistre",
+    healthNote: "Veau vivant, bon poids de naissance.",
+    breedingId: "REPRO-2026-007",
+    icon: "🐮",
+  },
+  {
+    id: "NAIS-2026-003",
+    calfName: "Fatou",
+    motherId: "SN-BOV-2026-0005",
+    motherName: "Khady",
+    fatherName: "Taureau Gobra communautaire",
+    birthDate: "Cette semaine",
+    sex: "F",
+    breed: "Gobra",
+    location: "Linguère",
+    ownerName: "Cheikh Fall",
+    herderName: "Ibrahima Sy",
+    status: "a_enregistrer",
+    healthNote: "Naissance signalée — fiche à compléter.",
+    icon: "👶",
+  },
+  {
+    id: "NAIS-2026-004",
+    calfId: "SN-BOV-2026-1004",
+    calfName: "Pathé",
+    motherId: "SN-BOV-2026-0001",
+    motherName: "Fanta",
+    fatherId: "SN-BOV-2026-0004",
+    fatherName: "Demba",
+    birthDate: "Jan. 2025",
+    sex: "M",
+    breed: "Gobra",
+    location: "Linguère",
+    ownerName: "Moussa Ba",
+    herderName: "Abdou Diop",
+    status: "enregistre",
+    healthNote: "Veau sevré, en bonne santé.",
+    icon: "🐮",
+  },
+  {
+    id: "NAIS-2026-005",
+    motherId: "SN-BOV-2026-0003",
+    motherName: "Penda",
+    fatherName: "Taureau Djakoré communautaire",
+    birthDate: "15 mai 2026",
+    sex: "M",
+    breed: "Djakoré",
+    location: "Kaolack",
+    ownerName: "Amadou Diallo",
+    herderName: "Mamadou Ndao",
+    status: "mort_ne",
+    healthNote: "Veau mort-né — suivi sanitaire de la mère recommandé.",
+    icon: "💔",
+  },
+  {
+    id: "NAIS-2026-006",
+    calfId: "SN-BOV-2026-1006",
+    calfName: "Awa",
+    motherId: "SN-BOV-2026-0007",
+    motherName: "Aïssata",
+    fatherId: "SN-BOV-2026-0002",
+    fatherName: "Samba",
+    birthDate: "Cette semaine",
+    sex: "F",
+    breed: "Ndama",
+    location: "Dahra",
+    ownerName: "Ousmane Sow",
+    herderName: "Lamine Cissé",
+    status: "suivi_requis",
+    healthNote: "Veau faible — surveillance rapprochée nécessaire.",
+    breedingId: "REPRO-2026-002",
+    icon: "🐮",
+  },
+];
+
+export function getBirthById(id: string): BirthRecord | undefined {
+  return birthRecords.find((b) => b.id === id);
+}
+
+export function getBirthsByMother(animalId: string): BirthRecord[] {
+  return birthRecords.filter((b) => b.motherId === animalId);
+}
+
+export function getBirthsByFather(animalId: string): BirthRecord[] {
+  return birthRecords.filter((b) => b.fatherId === animalId);
+}
+
+export const birthKpis = {
+  ceMois: birthRecords.filter(
+    (b) => b.birthDate.includes("juin") || b.birthDate.includes("Cette semaine"),
+  ).length,
+  veauxVivants: birthRecords.filter((b) => b.status !== "mort_ne" && b.calfName).length,
+  aEnregistrer: birthRecords.filter((b) => b.status === "a_enregistrer").length,
+  suiviMere: birthRecords.filter(
+    (b) => b.status === "suivi_requis" || b.status === "mort_ne",
+  ).length,
+};
+
+/* ------------------------------------------------------------------ */
 /* Dashboard tiles                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -786,7 +1194,7 @@ export const dashboardActions: DashboardAction[] = [
   { href: "/location", label: "Localisation", icon: "📍", accent: "from-white to-sand-dark text-earth" },
   { href: "/care", label: "Soins", icon: "💉", badge: careKpis.vetAAppeler, accent: "from-white to-sand-dark text-earth" },
   { href: "/vaccines", label: "Vaccins", icon: "🧪", badge: vaccinationsPending, accent: "from-white to-sand-dark text-earth" },
-  { href: "/births", label: "Naissances", icon: "👶", accent: "from-white to-sand-dark text-earth" },
+  { href: "/births", label: "Naissances", icon: "👶", badge: birthKpis.aEnregistrer, accent: "from-white to-sand-dark text-earth" },
   { href: "/sales", label: "Ventes", icon: "💰", accent: "from-white to-sand-dark text-earth" },
   { href: "/reports", label: "Résultats", icon: "📊", accent: "from-white to-sand-dark text-earth" },
 ];
@@ -946,10 +1354,17 @@ export const animalLocations: AnimalLocation[] = animals.map((a) => ({
 /* Dashboard tasks                                                     */
 /* ------------------------------------------------------------------ */
 
-export type UpcomingTask = { id: string; label: string; due: string; icon: string };
+export type UpcomingTask = {
+  id: string;
+  label: string;
+  due: string;
+  icon: string;
+  href: string;
+};
 
 export const upcomingTasks: UpcomingTask[] = [
-  { id: "t1", label: "Vaccination PPCB — 12 animaux", due: "Cette semaine", icon: "🧪" },
-  { id: "t2", label: "Déparasitage — lot Dahra", due: "Dans 3 jours", icon: "💊" },
-  { id: "t3", label: "Contrôle vétérinaire — Penda", due: "Demain", icon: "🩺" },
+  { id: "t1", label: "Naissance à enregistrer — Fatou", due: "Cette semaine", icon: "👶", href: "/births" },
+  { id: "t2", label: "Mise bas proche — Aïssata", due: "Imminent", icon: "🍼", href: "/breeding" },
+  { id: "t3", label: "Vaccins en retard — 2 animaux", due: "Cette semaine", icon: "🧪", href: "/vaccines" },
+  { id: "t4", label: "Soin urgent — Penda", due: "Aujourd'hui", icon: "🤒", href: "/care" },
 ];

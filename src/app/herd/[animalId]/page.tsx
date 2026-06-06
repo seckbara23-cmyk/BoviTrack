@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { SecurityPanel } from "@/components/herd/SecurityPanel";
 import { AnimalQuickActions } from "@/components/herd/AnimalQuickActions";
 import { HealthPanel } from "@/components/herd/HealthPanel";
+import { ReproductionPanel } from "@/components/herd/ReproductionPanel";
 import { ContactButton } from "@/components/security/ContactButton";
 import {
   getAnimalById,
@@ -12,6 +13,10 @@ import {
   eventTypeMeta,
   getCareByAnimal,
   getVaccinesByAnimal,
+  getBreedingByFemale,
+  getBreedingByFather,
+  getBirthsByMother,
+  getBirthsByFather,
 } from "@/lib/mock-data";
 
 export function generateStaticParams() {
@@ -59,16 +64,14 @@ export default async function AnimalProfilePage({
     notFound();
   }
 
-  const { identity, ownership, reproduction, location } = animal;
+  const { identity, ownership, location } = animal;
   const risk = locationRiskMeta[location.risk];
   const care = getCareByAnimal(animal.id);
   const vaccines = getVaccinesByAnimal(animal.id);
-  const mother = reproduction.motherId
-    ? getAnimalById(reproduction.motherId)
-    : undefined;
-  const father = reproduction.fatherId
-    ? getAnimalById(reproduction.fatherId)
-    : undefined;
+  const breedingAsFemale = getBreedingByFemale(animal.id);
+  const breedingAsFather = getBreedingByFather(animal.id);
+  const birthsAsMother = getBirthsByMother(animal.id);
+  const birthsAsFather = getBirthsByFather(animal.id);
 
   return (
     <div className="space-y-5">
@@ -180,21 +183,14 @@ export default async function AnimalProfilePage({
       {/* Health summary — real linked care & vaccine records (Phase 3) */}
       <HealthPanel animal={animal} care={care} vaccines={vaccines} />
 
-      {/* Reproduction summary (placeholder) */}
-      <Panel icon="❤️" title="Reproduction">
-        <dl className="grid grid-cols-2 gap-3 text-sm">
-          <Field
-            label="Gestation"
-            value={reproduction.pregnant ? "Oui 🤰" : "Non"}
-          />
-          <Field label="Naissance prévue" value={reproduction.expectedBirth ?? "—"} />
-          <Field label="Mère" value={mother ? mother.name : "—"} />
-          <Field label="Père" value={father ? father.name : "—"} />
-        </dl>
-        <p className="mt-3 rounded-full bg-gold/15 px-4 py-1.5 text-center text-xs font-medium text-gold-dark">
-          🛠️ Module Reproduction complet — Phase 3
-        </p>
-      </Panel>
+      {/* Reproduction summary — real linked records (Phase 4) */}
+      <ReproductionPanel
+        animal={animal}
+        breedingAsFemale={breedingAsFemale}
+        breedingAsFather={breedingAsFather}
+        birthsAsMother={birthsAsMother}
+        birthsAsFather={birthsAsFather}
+      />
 
       {/* Timeline */}
       <Panel icon="🕒" title="Historique">
