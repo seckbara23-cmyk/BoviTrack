@@ -54,6 +54,12 @@ export default async function AlertDetailPage({
           <div className="mt-2">
             <StatusBadge status={alert.status} />
           </div>
+          <Link
+            href={`/herd/${alert.animalId}`}
+            className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-green"
+          >
+            🐄 Voir la fiche de l&apos;animal ›
+          </Link>
         </div>
       </section>
 

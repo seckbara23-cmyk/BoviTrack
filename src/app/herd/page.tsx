@@ -1,33 +1,29 @@
-import Link from "next/link";
-import { AnimalCard } from "@/components/herd/AnimalCard";
-import { animals } from "@/lib/mock-data";
+import { SummaryCard } from "@/components/dashboard/SummaryCard";
+import { HerdExplorer } from "@/components/herd/HerdExplorer";
+import { animals, herdStats } from "@/lib/mock-data";
 
 export default function HerdPage() {
   return (
-    <div className="space-y-5">
-      <header className="flex items-center justify-between gap-3">
-        <div>
-          <h1 className="flex items-center gap-2 text-2xl font-extrabold text-earth">
-            <span aria-hidden>🐄</span> Mon troupeau
-          </h1>
-          <p className="text-sm text-earth/60">
-            {animals.length} animaux affichés (données fictives)
-          </p>
-        </div>
-        <Link
-          href="/herd/new"
-          aria-label="Ajouter un animal"
-          className="tile-press flex h-12 w-12 items-center justify-center rounded-2xl bg-gold text-2xl text-earth shadow-tile hover:bg-gold-dark hover:text-white"
-        >
-          ➕
-        </Link>
+    <div className="space-y-6">
+      <header>
+        <h1 className="flex items-center gap-2 text-2xl font-extrabold text-earth">
+          <span aria-hidden>🐄</span> Mon troupeau
+        </h1>
+        <p className="text-sm text-earth/60">Tous les animaux enregistrés</p>
       </header>
 
-      <div className="grid gap-3 lg:grid-cols-2">
-        {animals.map((animal) => (
-          <AnimalCard key={animal.id} animal={animal} />
-        ))}
-      </div>
+      {/* Quick stats */}
+      <section aria-label="Statistiques du troupeau">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <SummaryCard icon="🐄" value={herdStats.total} label="Total animaux" tone="neutral" />
+          <SummaryCard icon="🟢" value={herdStats.securises} label="Sécurisés" tone="ok" />
+          <SummaryCard icon="🔴" value={herdStats.enAlerte} label="En alerte" tone="alert" />
+          <SummaryCard icon="💉" value={herdStats.aSurveiller} label="À surveiller" tone="warning" />
+        </div>
+      </section>
+
+      {/* Search, filters and animal cards */}
+      <HerdExplorer animals={animals} />
     </div>
   );
 }
