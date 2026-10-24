@@ -5,7 +5,9 @@ A portable, verified archive of BoviTrack's Supabase database
 let BoviTrack leave Supabase later without losing data, structure or security
 rules. Nothing on the hosted project was migrated, paused, deleted or altered.
 
-**Start here:** [reports/final-report.md](reports/final-report.md)
+**Start here:** [reports/final-report.md](reports/final-report.md) ·
+recovery hardening and migration readiness (SUPABASE-COST-02A):
+[reports/cost-02a-final.md](reports/cost-02a-final.md)
 
 ## Status at a glance (2026-10-24)
 
@@ -15,9 +17,10 @@ rules. Nothing on the hosted project was migrated, paused, deleted or altered.
 | Schema drift: hosted vs `supabase/migrations` | ✅ none (line endings only) |
 | Logical snapshot: all `public` data + `auth.users` / `auth.identities` | ✅ 48 rows, encrypted, checksummed |
 | Restore rehearsal on vanilla PostgreSQL 18 (throwaway cluster) | ✅ every row identical to source, RLS works |
-| Canonical `pg_dump` of the hosted database | ⛔ blocked: no database password here, and the CLI route needs Docker. The script is ready and tested locally |
+| Canonical `pg_dump` of the hosted database | ⛔ blocked on the database password only; script hardened and tested (COST-02A) — [reports/pgdump-readiness.md](reports/pgdump-readiness.md) |
 | Auth service configuration (site URL, SMTP, templates, JWT keys) | ⚠️ not exported (contains secrets); needs a manual record |
-| Off-site copy of bundles + keys | ⚠️ your action, see [backups/README.md](backups/README.md) |
+| Off-site copy of bundles + keys | ⚠️ procedure + scripts ready and rehearsed locally; placement is the owner's action — [reports/offsite-backup-runbook.md](reports/offsite-backup-runbook.md) |
+| Profile self-promotion fix (F1) | ✅ designed + verified on a disposable restore; not applied — [reports/security-remediation-plan.md](reports/security-remediation-plan.md) |
 
 ## Layout
 

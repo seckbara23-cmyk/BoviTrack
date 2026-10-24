@@ -49,15 +49,18 @@ writes are blocked, and child tables are isolated.
 
 ### Suggested direction for a future phase
 
-- F1: revoke column-wide `UPDATE` on `profiles` from `authenticated` and grant
-  only the self-editable columns (for example `grant update (full_name) on
-  public.profiles to authenticated`). Alternatively, add a `WITH CHECK` or
-  trigger that rejects changes to `role` and `farm_id` unless the caller is a
-  `super_admin`.
+- F1: **designed and verified locally in SUPABASE-COST-02A** — see
+  [reports/security-remediation-plan.md](../reports/security-remediation-plan.md)
+  and [`proposed/`](proposed/) (fix, regression tests, rollback; not applied to
+  the hosted project). Column-level grants restrict self-service updates to
+  `full_name`; role/farm changes go through `admin_set_profile_access`
+  (super_admin only).
 - F2: add role predicates to the write policies (for example writes only for
   `farm_admin` and `field_agent`, `DELETE` on `farms` only for `super_admin`).
 - F3: on the next platform, grant least privilege explicitly instead of
   inheriting Supabase's default ACLs.
 
-Re-run `restore/04_rls_smoke_test.sql` after any fix. Rows 10–12 should then
-report `pass`.
+Re-run `restore/04_rls_smoke_test.sql` after any fix. With the F1 fix alone,
+row 11 reports `pass`; rows 10 and 12 stay `FINDING` until F2 is fixed (row 12
+then shows 11, not 12: the extra animal is row 10's own-farm insert, not
+cross-farm visibility).
