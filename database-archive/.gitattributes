@@ -1,0 +1,5 @@
+# Keep the archive byte-stable on every platform: checksums (SHA256SUMS) must
+# keep matching, and bash scripts break with CRLF line endings.
+* text eol=lf
+*.gpg binary
+*.dump binary

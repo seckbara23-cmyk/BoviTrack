@@ -1,0 +1,37 @@
+# SUPABASE-ARCHIVE-01 — git safety rules for the archive package.
+#
+# Only sanitized reports, documentation and scripts are committed.
+# Database dumps, data snapshots, auth records, encryption keys and any
+# decrypted/temporary material must never enter git.
+
+# backups/: everything is private except its README
+/backups/*
+!/backups/README.md
+
+# raw / unsanitized query output anywhere in the archive
+raw/
+tmp/
+*.raw.json
+*.plain.*
+*.decrypted.*
+
+# encrypted payloads and key material (belt and braces; also in root .gitignore)
+*.gpg
+*.age
+*.asc
+*.dump
+*.pgdump
+*.backup
+*.sql.gz
+*.tar
+*.tar.gz
+*.zip
+*.key
+*.keyfile
+*.passphrase
+*.pem
+
+# local throwaway restore clusters
+pgdata/
+restore-cluster/
+*.log

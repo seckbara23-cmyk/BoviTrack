@@ -28,3 +28,18 @@ next-env.d.ts
 
 # vercel
 .vercel
+
+# supabase cli local state
+/supabase/.temp/
+/supabase/.branches/
+
+# database archive — never commit dumps, exports, auth records or keys
+# (see database-archive/.gitignore for the full allow-list)
+*.gpg
+*.age
+*.dump
+*.pgdump
+*.backup
+*.sql.gz
+*.passphrase
+*.keyfile

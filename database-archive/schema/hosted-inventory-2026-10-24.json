@@ -1,0 +1,3658 @@
+{
+  "_note": "SUPABASE-ARCHIVE-01 sanitized hosted inventory of project vustkojrbefcbzotgorc (read-only catalog query, scripts/inventory.sql). Metadata and row COUNTS only — no row data, no credentials. Reference for scripts/compare-inventory.mjs.",
+  "columns": [
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "animals",
+      "type": "uuid"
+    },
+    {
+      "column": "farm_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "animals",
+      "type": "uuid"
+    },
+    {
+      "column": "owner_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 3,
+      "table": "animals",
+      "type": "uuid"
+    },
+    {
+      "column": "animal_code",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 4,
+      "table": "animals",
+      "type": "text"
+    },
+    {
+      "column": "rfid_tag",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "animals",
+      "type": "text"
+    },
+    {
+      "column": "qr_code",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 6,
+      "table": "animals",
+      "type": "text"
+    },
+    {
+      "column": "name",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 7,
+      "table": "animals",
+      "type": "text"
+    },
+    {
+      "column": "breed",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 8,
+      "table": "animals",
+      "type": "text"
+    },
+    {
+      "column": "sex",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 9,
+      "table": "animals",
+      "type": "animal_sex"
+    },
+    {
+      "column": "birth_year",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 10,
+      "table": "animals",
+      "type": "integer"
+    },
+    {
+      "column": "color",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 11,
+      "table": "animals",
+      "type": "text"
+    },
+    {
+      "column": "status",
+      "default": "'active'::animal_status",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 12,
+      "table": "animals",
+      "type": "animal_status"
+    },
+    {
+      "column": "created_at",
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 13,
+      "table": "animals",
+      "type": "timestamp with time zone"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "birth_records",
+      "type": "uuid"
+    },
+    {
+      "column": "calf_animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 2,
+      "table": "birth_records",
+      "type": "uuid"
+    },
+    {
+      "column": "mother_animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 3,
+      "table": "birth_records",
+      "type": "uuid"
+    },
+    {
+      "column": "breeding_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 4,
+      "table": "birth_records",
+      "type": "uuid"
+    },
+    {
+      "column": "birth_date",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "birth_records",
+      "type": "date"
+    },
+    {
+      "column": "status",
+      "default": "'a_enregistrer'::birth_status",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 6,
+      "table": "birth_records",
+      "type": "birth_status"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "breeding_records",
+      "type": "uuid"
+    },
+    {
+      "column": "female_animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "breeding_records",
+      "type": "uuid"
+    },
+    {
+      "column": "male_animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 3,
+      "table": "breeding_records",
+      "type": "uuid"
+    },
+    {
+      "column": "status",
+      "default": "'a_confirmer'::breeding_status",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 4,
+      "table": "breeding_records",
+      "type": "breeding_status"
+    },
+    {
+      "column": "expected_birth",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "breeding_records",
+      "type": "date"
+    },
+    {
+      "column": "created_at",
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 6,
+      "table": "breeding_records",
+      "type": "timestamp with time zone"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "care_records",
+      "type": "uuid"
+    },
+    {
+      "column": "animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "care_records",
+      "type": "uuid"
+    },
+    {
+      "column": "diagnosis",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 3,
+      "table": "care_records",
+      "type": "text"
+    },
+    {
+      "column": "treatment",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 4,
+      "table": "care_records",
+      "type": "text"
+    },
+    {
+      "column": "veterinarian",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "care_records",
+      "type": "text"
+    },
+    {
+      "column": "status",
+      "default": "'a_faire'::care_status",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 6,
+      "table": "care_records",
+      "type": "care_status"
+    },
+    {
+      "column": "date",
+      "default": "CURRENT_DATE",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 7,
+      "table": "care_records",
+      "type": "date"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "documents",
+      "type": "uuid"
+    },
+    {
+      "column": "animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "documents",
+      "type": "uuid"
+    },
+    {
+      "column": "doc_type",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 3,
+      "table": "documents",
+      "type": "text"
+    },
+    {
+      "column": "title",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 4,
+      "table": "documents",
+      "type": "text"
+    },
+    {
+      "column": "storage_path",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "documents",
+      "type": "text"
+    },
+    {
+      "column": "created_at",
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 6,
+      "table": "documents",
+      "type": "timestamp with time zone"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "farms",
+      "type": "uuid"
+    },
+    {
+      "column": "name",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "farms",
+      "type": "text"
+    },
+    {
+      "column": "region",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 3,
+      "table": "farms",
+      "type": "text"
+    },
+    {
+      "column": "department",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 4,
+      "table": "farms",
+      "type": "text"
+    },
+    {
+      "column": "village",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "farms",
+      "type": "text"
+    },
+    {
+      "column": "owner_name",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 6,
+      "table": "farms",
+      "type": "text"
+    },
+    {
+      "column": "created_at",
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 7,
+      "table": "farms",
+      "type": "timestamp with time zone"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "locations",
+      "type": "uuid"
+    },
+    {
+      "column": "animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "locations",
+      "type": "uuid"
+    },
+    {
+      "column": "location_name",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 3,
+      "table": "locations",
+      "type": "text"
+    },
+    {
+      "column": "latitude",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 4,
+      "table": "locations",
+      "type": "double precision"
+    },
+    {
+      "column": "longitude",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "locations",
+      "type": "double precision"
+    },
+    {
+      "column": "risk_status",
+      "default": "'normale'::location_risk",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 6,
+      "table": "locations",
+      "type": "location_risk"
+    },
+    {
+      "column": "recorded_at",
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 7,
+      "table": "locations",
+      "type": "timestamp with time zone"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "owners",
+      "type": "uuid"
+    },
+    {
+      "column": "farm_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "owners",
+      "type": "uuid"
+    },
+    {
+      "column": "full_name",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 3,
+      "table": "owners",
+      "type": "text"
+    },
+    {
+      "column": "phone",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 4,
+      "table": "owners",
+      "type": "text"
+    },
+    {
+      "column": "village",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "owners",
+      "type": "text"
+    },
+    {
+      "column": "id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "profiles",
+      "type": "uuid"
+    },
+    {
+      "column": "email",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 2,
+      "table": "profiles",
+      "type": "text"
+    },
+    {
+      "column": "full_name",
+      "default": "''::text",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 3,
+      "table": "profiles",
+      "type": "text"
+    },
+    {
+      "column": "role",
+      "default": "'viewer'::user_role",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 4,
+      "table": "profiles",
+      "type": "user_role"
+    },
+    {
+      "column": "farm_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "profiles",
+      "type": "uuid"
+    },
+    {
+      "column": "created_at",
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 6,
+      "table": "profiles",
+      "type": "timestamp with time zone"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "sale_records",
+      "type": "uuid"
+    },
+    {
+      "column": "animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "sale_records",
+      "type": "uuid"
+    },
+    {
+      "column": "seller_name",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 3,
+      "table": "sale_records",
+      "type": "text"
+    },
+    {
+      "column": "buyer_name",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 4,
+      "table": "sale_records",
+      "type": "text"
+    },
+    {
+      "column": "price_fcfa",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "sale_records",
+      "type": "bigint"
+    },
+    {
+      "column": "market",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 6,
+      "table": "sale_records",
+      "type": "text"
+    },
+    {
+      "column": "status",
+      "default": "'negociation'::sale_status",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 7,
+      "table": "sale_records",
+      "type": "sale_status"
+    },
+    {
+      "column": "created_at",
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 8,
+      "table": "sale_records",
+      "type": "timestamp with time zone"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "security_alerts",
+      "type": "uuid"
+    },
+    {
+      "column": "animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "security_alerts",
+      "type": "uuid"
+    },
+    {
+      "column": "alert_type",
+      "default": "'vol'::alert_type",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 3,
+      "table": "security_alerts",
+      "type": "alert_type"
+    },
+    {
+      "column": "status",
+      "default": "'nouvelle'::alert_status",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 4,
+      "table": "security_alerts",
+      "type": "alert_status"
+    },
+    {
+      "column": "severity",
+      "default": "'high'::alert_severity",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 5,
+      "table": "security_alerts",
+      "type": "alert_severity"
+    },
+    {
+      "column": "last_known_location",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 6,
+      "table": "security_alerts",
+      "type": "text"
+    },
+    {
+      "column": "created_at",
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 7,
+      "table": "security_alerts",
+      "type": "timestamp with time zone"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "timeline_events",
+      "type": "uuid"
+    },
+    {
+      "column": "animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "timeline_events",
+      "type": "uuid"
+    },
+    {
+      "column": "event_type",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 3,
+      "table": "timeline_events",
+      "type": "text"
+    },
+    {
+      "column": "description",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 4,
+      "table": "timeline_events",
+      "type": "text"
+    },
+    {
+      "column": "created_at",
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 5,
+      "table": "timeline_events",
+      "type": "timestamp with time zone"
+    },
+    {
+      "column": "id",
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 1,
+      "table": "vaccine_records",
+      "type": "uuid"
+    },
+    {
+      "column": "animal_id",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 2,
+      "table": "vaccine_records",
+      "type": "uuid"
+    },
+    {
+      "column": "vaccine_name",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 3,
+      "table": "vaccine_records",
+      "type": "text"
+    },
+    {
+      "column": "due_date",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 4,
+      "table": "vaccine_records",
+      "type": "date"
+    },
+    {
+      "column": "done_date",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 5,
+      "table": "vaccine_records",
+      "type": "date"
+    },
+    {
+      "column": "agent",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 6,
+      "table": "vaccine_records",
+      "type": "text"
+    },
+    {
+      "column": "batch_number",
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "not_null": false,
+      "ordinal": 7,
+      "table": "vaccine_records",
+      "type": "text"
+    },
+    {
+      "column": "status",
+      "default": "'a_faire'::vaccine_status",
+      "generated": null,
+      "identity": null,
+      "not_null": true,
+      "ordinal": 8,
+      "table": "vaccine_records",
+      "type": "vaccine_status"
+    }
+  ],
+  "constraints": [
+    {
+      "definition": "UNIQUE (farm_id, animal_code)",
+      "name": "animals_farm_id_animal_code_key",
+      "table": "animals",
+      "type": "u"
+    },
+    {
+      "definition": "FOREIGN KEY (farm_id) REFERENCES farms(id) ON DELETE CASCADE",
+      "name": "animals_farm_id_fkey",
+      "table": "animals",
+      "type": "f"
+    },
+    {
+      "definition": "FOREIGN KEY (owner_id) REFERENCES owners(id) ON DELETE SET NULL",
+      "name": "animals_owner_id_fkey",
+      "table": "animals",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "animals_pkey",
+      "table": "animals",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (breeding_id) REFERENCES breeding_records(id) ON DELETE SET NULL",
+      "name": "birth_records_breeding_id_fkey",
+      "table": "birth_records",
+      "type": "f"
+    },
+    {
+      "definition": "FOREIGN KEY (calf_animal_id) REFERENCES animals(id) ON DELETE SET NULL",
+      "name": "birth_records_calf_animal_id_fkey",
+      "table": "birth_records",
+      "type": "f"
+    },
+    {
+      "definition": "FOREIGN KEY (mother_animal_id) REFERENCES animals(id) ON DELETE CASCADE",
+      "name": "birth_records_mother_animal_id_fkey",
+      "table": "birth_records",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "birth_records_pkey",
+      "table": "birth_records",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (female_animal_id) REFERENCES animals(id) ON DELETE CASCADE",
+      "name": "breeding_records_female_animal_id_fkey",
+      "table": "breeding_records",
+      "type": "f"
+    },
+    {
+      "definition": "FOREIGN KEY (male_animal_id) REFERENCES animals(id) ON DELETE SET NULL",
+      "name": "breeding_records_male_animal_id_fkey",
+      "table": "breeding_records",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "breeding_records_pkey",
+      "table": "breeding_records",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (animal_id) REFERENCES animals(id) ON DELETE CASCADE",
+      "name": "care_records_animal_id_fkey",
+      "table": "care_records",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "care_records_pkey",
+      "table": "care_records",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (animal_id) REFERENCES animals(id) ON DELETE CASCADE",
+      "name": "documents_animal_id_fkey",
+      "table": "documents",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "documents_pkey",
+      "table": "documents",
+      "type": "p"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "farms_pkey",
+      "table": "farms",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (animal_id) REFERENCES animals(id) ON DELETE CASCADE",
+      "name": "locations_animal_id_fkey",
+      "table": "locations",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "locations_pkey",
+      "table": "locations",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (farm_id) REFERENCES farms(id) ON DELETE CASCADE",
+      "name": "owners_farm_id_fkey",
+      "table": "owners",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "owners_pkey",
+      "table": "owners",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (farm_id) REFERENCES farms(id) ON DELETE SET NULL",
+      "name": "profiles_farm_id_fkey",
+      "table": "profiles",
+      "type": "f"
+    },
+    {
+      "definition": "FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "name": "profiles_id_fkey",
+      "table": "profiles",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "profiles_pkey",
+      "table": "profiles",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (animal_id) REFERENCES animals(id) ON DELETE CASCADE",
+      "name": "sale_records_animal_id_fkey",
+      "table": "sale_records",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "sale_records_pkey",
+      "table": "sale_records",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (animal_id) REFERENCES animals(id) ON DELETE CASCADE",
+      "name": "security_alerts_animal_id_fkey",
+      "table": "security_alerts",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "security_alerts_pkey",
+      "table": "security_alerts",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (animal_id) REFERENCES animals(id) ON DELETE CASCADE",
+      "name": "timeline_events_animal_id_fkey",
+      "table": "timeline_events",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "timeline_events_pkey",
+      "table": "timeline_events",
+      "type": "p"
+    },
+    {
+      "definition": "FOREIGN KEY (animal_id) REFERENCES animals(id) ON DELETE CASCADE",
+      "name": "vaccine_records_animal_id_fkey",
+      "table": "vaccine_records",
+      "type": "f"
+    },
+    {
+      "definition": "PRIMARY KEY (id)",
+      "name": "vaccine_records_pkey",
+      "table": "vaccine_records",
+      "type": "p"
+    }
+  ],
+  "default_privileges": [
+    {
+      "acl": [
+        "postgres=rwU/postgres",
+        "anon=rwU/postgres",
+        "authenticated=rwU/postgres",
+        "service_role=rwU/postgres"
+      ],
+      "object_type": "S",
+      "owner": "postgres",
+      "schema": "public"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "anon=X/postgres",
+        "authenticated=X/postgres",
+        "service_role=X/postgres"
+      ],
+      "object_type": "f",
+      "owner": "postgres",
+      "schema": "public"
+    },
+    {
+      "acl": [
+        "postgres=arwdDxtm/postgres",
+        "anon=arwdDxtm/postgres",
+        "authenticated=arwdDxtm/postgres",
+        "service_role=arwdDxtm/postgres"
+      ],
+      "object_type": "r",
+      "owner": "postgres",
+      "schema": "public"
+    },
+    {
+      "acl": [
+        "postgres=rwU/supabase_admin",
+        "anon=rwU/supabase_admin",
+        "authenticated=rwU/supabase_admin",
+        "service_role=rwU/supabase_admin"
+      ],
+      "object_type": "S",
+      "owner": "supabase_admin",
+      "schema": "public"
+    },
+    {
+      "acl": [
+        "postgres=X/supabase_admin",
+        "anon=X/supabase_admin",
+        "authenticated=X/supabase_admin",
+        "service_role=X/supabase_admin"
+      ],
+      "object_type": "f",
+      "owner": "supabase_admin",
+      "schema": "public"
+    },
+    {
+      "acl": [
+        "postgres=arwdDxtm/supabase_admin",
+        "anon=arwdDxtm/supabase_admin",
+        "authenticated=arwdDxtm/supabase_admin",
+        "service_role=arwdDxtm/supabase_admin"
+      ],
+      "object_type": "r",
+      "owner": "supabase_admin",
+      "schema": "public"
+    }
+  ],
+  "enums": [
+    {
+      "labels": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "name": "alert_severity"
+    },
+    {
+      "labels": [
+        "nouvelle",
+        "recherche",
+        "autorites",
+        "retrouve",
+        "cloturee"
+      ],
+      "name": "alert_status"
+    },
+    {
+      "labels": [
+        "vol",
+        "disparition",
+        "intrusion",
+        "sanitaire"
+      ],
+      "name": "alert_type"
+    },
+    {
+      "labels": [
+        "M",
+        "F"
+      ],
+      "name": "animal_sex"
+    },
+    {
+      "labels": [
+        "active",
+        "sold",
+        "deceased",
+        "lost"
+      ],
+      "name": "animal_status"
+    },
+    {
+      "labels": [
+        "a_enregistrer",
+        "enregistre",
+        "suivi_requis",
+        "mort_ne"
+      ],
+      "name": "birth_status"
+    },
+    {
+      "labels": [
+        "a_confirmer",
+        "gestation",
+        "a_surveiller",
+        "mise_bas_proche",
+        "terminee",
+        "echec"
+      ],
+      "name": "breeding_status"
+    },
+    {
+      "labels": [
+        "a_faire",
+        "en_cours",
+        "termine",
+        "urgent",
+        "suivi"
+      ],
+      "name": "care_status"
+    },
+    {
+      "labels": [
+        "normale",
+        "sortie",
+        "ancienne",
+        "alerte"
+      ],
+      "name": "location_risk"
+    },
+    {
+      "labels": [
+        "negociation",
+        "confirmee",
+        "paiement_attente",
+        "transfert_attente",
+        "transfere",
+        "annule"
+      ],
+      "name": "sale_status"
+    },
+    {
+      "labels": [
+        "super_admin",
+        "farm_admin",
+        "field_agent",
+        "veterinarian",
+        "viewer"
+      ],
+      "name": "user_role"
+    },
+    {
+      "labels": [
+        "a_faire",
+        "en_retard",
+        "fait",
+        "programme"
+      ],
+      "name": "vaccine_status"
+    }
+  ],
+  "extensions": [
+    {
+      "name": "pg_stat_statements",
+      "schema": "extensions",
+      "version": "1.11"
+    },
+    {
+      "name": "pgcrypto",
+      "schema": "extensions",
+      "version": "1.3"
+    },
+    {
+      "name": "plpgsql",
+      "schema": "pg_catalog",
+      "version": "1.0"
+    },
+    {
+      "name": "supabase_vault",
+      "schema": "vault",
+      "version": "0.3.1"
+    },
+    {
+      "name": "uuid-ossp",
+      "schema": "extensions",
+      "version": "1.1"
+    }
+  ],
+  "function_grants": [
+    {
+      "function": "can_access_animal(target uuid)",
+      "grantee": "PUBLIC",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "can_access_animal(target uuid)",
+      "grantee": "anon",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "can_access_animal(target uuid)",
+      "grantee": "authenticated",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "can_access_animal(target uuid)",
+      "grantee": "postgres",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "can_access_animal(target uuid)",
+      "grantee": "service_role",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "can_access_farm(target uuid)",
+      "grantee": "PUBLIC",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "can_access_farm(target uuid)",
+      "grantee": "anon",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "can_access_farm(target uuid)",
+      "grantee": "authenticated",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "can_access_farm(target uuid)",
+      "grantee": "postgres",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "can_access_farm(target uuid)",
+      "grantee": "service_role",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "handle_new_user()",
+      "grantee": "PUBLIC",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "handle_new_user()",
+      "grantee": "anon",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "handle_new_user()",
+      "grantee": "authenticated",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "handle_new_user()",
+      "grantee": "postgres",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "handle_new_user()",
+      "grantee": "service_role",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "is_super_admin()",
+      "grantee": "PUBLIC",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "is_super_admin()",
+      "grantee": "anon",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "is_super_admin()",
+      "grantee": "authenticated",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "is_super_admin()",
+      "grantee": "postgres",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "is_super_admin()",
+      "grantee": "service_role",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "my_farm_id()",
+      "grantee": "PUBLIC",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "my_farm_id()",
+      "grantee": "anon",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "my_farm_id()",
+      "grantee": "authenticated",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "my_farm_id()",
+      "grantee": "postgres",
+      "privileges": [
+        "EXECUTE"
+      ]
+    },
+    {
+      "function": "my_farm_id()",
+      "grantee": "service_role",
+      "privileges": [
+        "EXECUTE"
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "arguments": "target uuid",
+      "body_md5": "63225fc0dd782c9fdc322db4d4d883c0",
+      "config": [
+        "search_path=public"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.can_access_animal(target uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\r\n  select exists (\r\n    select 1 from public.animals a\r\n    where a.id = target\r\n      and (public.is_super_admin() or a.farm_id = public.my_farm_id())\r\n  );\r\n$function$\n",
+      "language": "sql",
+      "name": "can_access_animal",
+      "owner": "postgres",
+      "returns": "boolean",
+      "security_definer": true,
+      "volatility": "s"
+    },
+    {
+      "arguments": "target uuid",
+      "body_md5": "49f7c47675afc0f24fd3dd0a891f3cd0",
+      "config": [
+        "search_path=public"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.can_access_farm(target uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\r\n  select public.is_super_admin() or target = public.my_farm_id();\r\n$function$\n",
+      "language": "sql",
+      "name": "can_access_farm",
+      "owner": "postgres",
+      "returns": "boolean",
+      "security_definer": true,
+      "volatility": "s"
+    },
+    {
+      "arguments": "",
+      "body_md5": "6a2ce93791783d2568f4860fd1c25fd5",
+      "config": [
+        "search_path=public"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.handle_new_user()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\r\nbegin\r\n  insert into public.profiles (id, email, full_name, role)\r\n  values (\r\n    new.id,\r\n    new.email,\r\n    coalesce(new.raw_user_meta_data ->> 'full_name', ''),\r\n    'viewer'\r\n  );\r\n  return new;\r\nend;\r\n$function$\n",
+      "language": "plpgsql",
+      "name": "handle_new_user",
+      "owner": "postgres",
+      "returns": "trigger",
+      "security_definer": true,
+      "volatility": "v"
+    },
+    {
+      "arguments": "",
+      "body_md5": "019172986ebc61fb7e094061474fdd4d",
+      "config": [
+        "search_path=public"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.is_super_admin()\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\r\n  select exists (\r\n    select 1 from public.profiles\r\n    where id = auth.uid() and role = 'super_admin'\r\n  );\r\n$function$\n",
+      "language": "sql",
+      "name": "is_super_admin",
+      "owner": "postgres",
+      "returns": "boolean",
+      "security_definer": true,
+      "volatility": "s"
+    },
+    {
+      "arguments": "",
+      "body_md5": "3e424690a7dd40d4c7b3ce0eb6861268",
+      "config": [
+        "search_path=public"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.my_farm_id()\n RETURNS uuid\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\r\n  select farm_id from public.profiles where id = auth.uid();\r\n$function$\n",
+      "language": "sql",
+      "name": "my_farm_id",
+      "owner": "postgres",
+      "returns": "uuid",
+      "security_definer": true,
+      "volatility": "s"
+    }
+  ],
+  "generated_at": "2026-10-24T17:15:15.707578+00:00",
+  "indexes": [
+    {
+      "definition": "CREATE UNIQUE INDEX animals_farm_id_animal_code_key ON public.animals USING btree (farm_id, animal_code)",
+      "name": "animals_farm_id_animal_code_key",
+      "table": "animals"
+    },
+    {
+      "definition": "CREATE INDEX animals_farm_id_idx ON public.animals USING btree (farm_id)",
+      "name": "animals_farm_id_idx",
+      "table": "animals"
+    },
+    {
+      "definition": "CREATE INDEX animals_owner_id_idx ON public.animals USING btree (owner_id)",
+      "name": "animals_owner_id_idx",
+      "table": "animals"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX animals_pkey ON public.animals USING btree (id)",
+      "name": "animals_pkey",
+      "table": "animals"
+    },
+    {
+      "definition": "CREATE INDEX birth_records_calf_animal_id_idx ON public.birth_records USING btree (calf_animal_id)",
+      "name": "birth_records_calf_animal_id_idx",
+      "table": "birth_records"
+    },
+    {
+      "definition": "CREATE INDEX birth_records_mother_animal_id_idx ON public.birth_records USING btree (mother_animal_id)",
+      "name": "birth_records_mother_animal_id_idx",
+      "table": "birth_records"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX birth_records_pkey ON public.birth_records USING btree (id)",
+      "name": "birth_records_pkey",
+      "table": "birth_records"
+    },
+    {
+      "definition": "CREATE INDEX breeding_records_female_animal_id_idx ON public.breeding_records USING btree (female_animal_id)",
+      "name": "breeding_records_female_animal_id_idx",
+      "table": "breeding_records"
+    },
+    {
+      "definition": "CREATE INDEX breeding_records_male_animal_id_idx ON public.breeding_records USING btree (male_animal_id)",
+      "name": "breeding_records_male_animal_id_idx",
+      "table": "breeding_records"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX breeding_records_pkey ON public.breeding_records USING btree (id)",
+      "name": "breeding_records_pkey",
+      "table": "breeding_records"
+    },
+    {
+      "definition": "CREATE INDEX care_records_animal_id_idx ON public.care_records USING btree (animal_id)",
+      "name": "care_records_animal_id_idx",
+      "table": "care_records"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX care_records_pkey ON public.care_records USING btree (id)",
+      "name": "care_records_pkey",
+      "table": "care_records"
+    },
+    {
+      "definition": "CREATE INDEX documents_animal_id_idx ON public.documents USING btree (animal_id)",
+      "name": "documents_animal_id_idx",
+      "table": "documents"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX documents_pkey ON public.documents USING btree (id)",
+      "name": "documents_pkey",
+      "table": "documents"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX farms_pkey ON public.farms USING btree (id)",
+      "name": "farms_pkey",
+      "table": "farms"
+    },
+    {
+      "definition": "CREATE INDEX locations_animal_id_idx ON public.locations USING btree (animal_id)",
+      "name": "locations_animal_id_idx",
+      "table": "locations"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX locations_pkey ON public.locations USING btree (id)",
+      "name": "locations_pkey",
+      "table": "locations"
+    },
+    {
+      "definition": "CREATE INDEX owners_farm_id_idx ON public.owners USING btree (farm_id)",
+      "name": "owners_farm_id_idx",
+      "table": "owners"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX owners_pkey ON public.owners USING btree (id)",
+      "name": "owners_pkey",
+      "table": "owners"
+    },
+    {
+      "definition": "CREATE INDEX profiles_farm_id_idx ON public.profiles USING btree (farm_id)",
+      "name": "profiles_farm_id_idx",
+      "table": "profiles"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX profiles_pkey ON public.profiles USING btree (id)",
+      "name": "profiles_pkey",
+      "table": "profiles"
+    },
+    {
+      "definition": "CREATE INDEX sale_records_animal_id_idx ON public.sale_records USING btree (animal_id)",
+      "name": "sale_records_animal_id_idx",
+      "table": "sale_records"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX sale_records_pkey ON public.sale_records USING btree (id)",
+      "name": "sale_records_pkey",
+      "table": "sale_records"
+    },
+    {
+      "definition": "CREATE INDEX security_alerts_animal_id_idx ON public.security_alerts USING btree (animal_id)",
+      "name": "security_alerts_animal_id_idx",
+      "table": "security_alerts"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX security_alerts_pkey ON public.security_alerts USING btree (id)",
+      "name": "security_alerts_pkey",
+      "table": "security_alerts"
+    },
+    {
+      "definition": "CREATE INDEX timeline_events_animal_id_idx ON public.timeline_events USING btree (animal_id)",
+      "name": "timeline_events_animal_id_idx",
+      "table": "timeline_events"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX timeline_events_pkey ON public.timeline_events USING btree (id)",
+      "name": "timeline_events_pkey",
+      "table": "timeline_events"
+    },
+    {
+      "definition": "CREATE INDEX vaccine_records_animal_id_idx ON public.vaccine_records USING btree (animal_id)",
+      "name": "vaccine_records_animal_id_idx",
+      "table": "vaccine_records"
+    },
+    {
+      "definition": "CREATE UNIQUE INDEX vaccine_records_pkey ON public.vaccine_records USING btree (id)",
+      "name": "vaccine_records_pkey",
+      "table": "vaccine_records"
+    }
+  ],
+  "inventory_version": 1,
+  "policies": [
+    {
+      "command": "SELECT",
+      "name": "animals_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "animals",
+      "using": "can_access_farm(farm_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "animals_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "animals",
+      "using": "can_access_farm(farm_id)",
+      "with_check": "can_access_farm(farm_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "birth_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "birth_records",
+      "using": "can_access_animal(mother_animal_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "birth_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "birth_records",
+      "using": "can_access_animal(mother_animal_id)",
+      "with_check": "can_access_animal(mother_animal_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "breeding_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "breeding_records",
+      "using": "can_access_animal(female_animal_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "breeding_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "breeding_records",
+      "using": "can_access_animal(female_animal_id)",
+      "with_check": "can_access_animal(female_animal_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "care_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "care_records",
+      "using": "can_access_animal(animal_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "care_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "care_records",
+      "using": "can_access_animal(animal_id)",
+      "with_check": "can_access_animal(animal_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "documents_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "documents",
+      "using": "can_access_animal(animal_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "documents_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "documents",
+      "using": "can_access_animal(animal_id)",
+      "with_check": "can_access_animal(animal_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "farms_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "farms",
+      "using": "can_access_farm(id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "farms_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "farms",
+      "using": "can_access_farm(id)",
+      "with_check": "can_access_farm(id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "locations_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "locations",
+      "using": "can_access_animal(animal_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "locations_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "locations",
+      "using": "can_access_animal(animal_id)",
+      "with_check": "can_access_animal(animal_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "owners_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "owners",
+      "using": "can_access_farm(farm_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "owners_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "owners",
+      "using": "can_access_farm(farm_id)",
+      "with_check": "can_access_farm(farm_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "profiles_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "profiles",
+      "using": "((id = auth.uid()) OR is_super_admin())",
+      "with_check": null
+    },
+    {
+      "command": "UPDATE",
+      "name": "profiles_update",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "profiles",
+      "using": "((id = auth.uid()) OR is_super_admin())",
+      "with_check": "((id = auth.uid()) OR is_super_admin())"
+    },
+    {
+      "command": "SELECT",
+      "name": "sale_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "sale_records",
+      "using": "can_access_animal(animal_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "sale_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "sale_records",
+      "using": "can_access_animal(animal_id)",
+      "with_check": "can_access_animal(animal_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "alerts_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "security_alerts",
+      "using": "can_access_animal(animal_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "alerts_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "security_alerts",
+      "using": "can_access_animal(animal_id)",
+      "with_check": "can_access_animal(animal_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "timeline_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "timeline_events",
+      "using": "can_access_animal(animal_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "timeline_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "timeline_events",
+      "using": "can_access_animal(animal_id)",
+      "with_check": "can_access_animal(animal_id)"
+    },
+    {
+      "command": "SELECT",
+      "name": "vaccine_select",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "vaccine_records",
+      "using": "can_access_animal(animal_id)",
+      "with_check": null
+    },
+    {
+      "command": "ALL",
+      "name": "vaccine_write",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "public"
+      ],
+      "schema": "public",
+      "table": "vaccine_records",
+      "using": "can_access_animal(animal_id)",
+      "with_check": "can_access_animal(animal_id)"
+    }
+  ],
+  "publications": [
+    {
+      "all_tables": false,
+      "name": "supabase_realtime",
+      "tables": []
+    }
+  ],
+  "roles": [
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "login": false,
+      "member_of": [],
+      "name": "anon",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "login": false,
+      "member_of": [],
+      "name": "authenticated",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "login": true,
+      "member_of": [
+        "anon",
+        "authenticated",
+        "service_role"
+      ],
+      "name": "authenticator",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "login": true,
+      "member_of": [
+        "postgres"
+      ],
+      "name": "cli_login_postgres",
+      "replication": false,
+      "superuser": false,
+      "valid_until": "2026-10-24T17:20:15.448039+00:00"
+    },
+    {
+      "bypassrls": false,
+      "createdb": true,
+      "createrole": true,
+      "login": false,
+      "member_of": [],
+      "name": "dashboard_user",
+      "replication": true,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "login": true,
+      "member_of": [],
+      "name": "pgbouncer",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": true,
+      "createdb": true,
+      "createrole": true,
+      "login": true,
+      "member_of": [
+        "anon",
+        "authenticated",
+        "authenticator",
+        "pg_create_subscription",
+        "pg_monitor",
+        "pg_read_all_data",
+        "pg_signal_backend",
+        "service_role",
+        "supabase_privileged_role",
+        "supabase_realtime_admin"
+      ],
+      "name": "postgres",
+      "replication": true,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": true,
+      "createdb": false,
+      "createrole": false,
+      "login": false,
+      "member_of": [],
+      "name": "service_role",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": true,
+      "createdb": true,
+      "createrole": true,
+      "login": true,
+      "member_of": [],
+      "name": "supabase_admin",
+      "replication": true,
+      "superuser": true,
+      "valid_until": null
+    },
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": true,
+      "login": true,
+      "member_of": [],
+      "name": "supabase_auth_admin",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": true,
+      "createdb": false,
+      "createrole": false,
+      "login": true,
+      "member_of": [
+        "pg_monitor",
+        "pg_read_all_data",
+        "supabase_privileged_role"
+      ],
+      "name": "supabase_etl_admin",
+      "replication": true,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "login": false,
+      "member_of": [],
+      "name": "supabase_privileged_role",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": true,
+      "createdb": false,
+      "createrole": false,
+      "login": true,
+      "member_of": [
+        "pg_monitor",
+        "pg_read_all_data"
+      ],
+      "name": "supabase_read_only_user",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "login": false,
+      "member_of": [],
+      "name": "supabase_realtime_admin",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "login": true,
+      "member_of": [],
+      "name": "supabase_replication_admin",
+      "replication": true,
+      "superuser": false,
+      "valid_until": null
+    },
+    {
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": true,
+      "login": true,
+      "member_of": [
+        "authenticator"
+      ],
+      "name": "supabase_storage_admin",
+      "replication": false,
+      "superuser": false,
+      "valid_until": null
+    }
+  ],
+  "schema_grants": [
+    {
+      "grantee": "PUBLIC",
+      "privileges": [
+        "USAGE"
+      ],
+      "schema": "public"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "USAGE"
+      ],
+      "schema": "public"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "USAGE"
+      ],
+      "schema": "public"
+    },
+    {
+      "grantee": "pg_database_owner",
+      "privileges": [
+        "CREATE",
+        "USAGE"
+      ],
+      "schema": "public"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "USAGE"
+      ],
+      "schema": "public"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "USAGE"
+      ],
+      "schema": "public"
+    }
+  ],
+  "schemas": [
+    {
+      "name": "auth",
+      "owner": "supabase_admin"
+    },
+    {
+      "name": "extensions",
+      "owner": "postgres"
+    },
+    {
+      "name": "graphql",
+      "owner": "supabase_admin"
+    },
+    {
+      "name": "graphql_public",
+      "owner": "supabase_admin"
+    },
+    {
+      "name": "pgbouncer",
+      "owner": "pgbouncer"
+    },
+    {
+      "name": "public",
+      "owner": "pg_database_owner"
+    },
+    {
+      "name": "realtime",
+      "owner": "supabase_admin"
+    },
+    {
+      "name": "storage",
+      "owner": "supabase_admin"
+    },
+    {
+      "name": "vault",
+      "owner": "supabase_admin"
+    }
+  ],
+  "sequences": [
+    {
+      "data_type": "bigint",
+      "name": "refresh_tokens_id_seq",
+      "schema": "auth"
+    },
+    {
+      "data_type": "bigint",
+      "name": "subscription_id_seq",
+      "schema": "realtime"
+    }
+  ],
+  "server": {
+    "collate": "en_US.UTF-8",
+    "ctype": "en_US.UTF-8",
+    "current_user": "postgres",
+    "current_user_bypassrls": true,
+    "database": "postgres",
+    "encoding": "UTF8",
+    "server_version_num": 170006,
+    "size_bytes": 12373139,
+    "timezone": "UTC",
+    "transaction_read_only": "on",
+    "version": "PostgreSQL 17.6 on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 15.2.0, 64-bit"
+  },
+  "table_grants": [
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "animals"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "animals"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "animals"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "animals"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "birth_records"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "birth_records"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "birth_records"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "birth_records"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "breeding_records"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "breeding_records"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "breeding_records"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "breeding_records"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "care_records"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "care_records"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "care_records"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "care_records"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "documents"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "documents"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "documents"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "documents"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "farms"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "farms"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "farms"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "farms"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "locations"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "locations"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "locations"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "locations"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "owners"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "owners"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "owners"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "owners"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "profiles"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "profiles"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "profiles"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "profiles"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "sale_records"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "sale_records"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "sale_records"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "sale_records"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "security_alerts"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "security_alerts"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "security_alerts"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "security_alerts"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "timeline_events"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "timeline_events"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "timeline_events"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "timeline_events"
+    },
+    {
+      "grantee": "anon",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "vaccine_records"
+    },
+    {
+      "grantee": "authenticated",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "vaccine_records"
+    },
+    {
+      "grantee": "postgres",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "vaccine_records"
+    },
+    {
+      "grantee": "service_role",
+      "privileges": [
+        "DELETE",
+        "INSERT",
+        "MAINTAIN",
+        "REFERENCES",
+        "SELECT",
+        "TRIGGER",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "table": "vaccine_records"
+    }
+  ],
+  "tables": [
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "audit_log_entries",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "custom_oauth_providers",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 57344
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "flow_state",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 40960
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 1,
+      "kind": "r",
+      "name": "identities",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 81920
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "instances",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 16384
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "mfa_amr_claims",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "mfa_challenges",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "mfa_factors",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 57344
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "mfa_recovery_code_sets",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "mfa_recovery_codes",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "oauth_authorizations",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 40960
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "oauth_client_states",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "oauth_clients",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "oauth_consents",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "one_time_tokens",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 90112
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "refresh_tokens",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 65536
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "saml_providers",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 32768
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "saml_relay_states",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 40960
+    },
+    {
+      "estimated_rows": 76,
+      "exact_rows": 82,
+      "kind": "r",
+      "name": "schema_migrations",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "scim_tokens",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "scim_users",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 90112
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "sessions",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "sso_domains",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 32768
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "sso_providers",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 32768
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 1,
+      "kind": "r",
+      "name": "users",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 212992
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "webauthn_challenges",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 32768
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "webauthn_credentials",
+      "owner": "supabase_auth_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "auth",
+      "total_bytes": 32768
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 10,
+      "kind": "r",
+      "name": "animals",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 81920
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 2,
+      "kind": "r",
+      "name": "birth_records",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 57344
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 3,
+      "kind": "r",
+      "name": "breeding_records",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 57344
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 5,
+      "kind": "r",
+      "name": "care_records",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "documents",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 1,
+      "kind": "r",
+      "name": "farms",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 32768
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 5,
+      "kind": "r",
+      "name": "locations",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 5,
+      "kind": "r",
+      "name": "owners",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 1,
+      "kind": "r",
+      "name": "profiles",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 3,
+      "kind": "r",
+      "name": "sale_records",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 3,
+      "kind": "r",
+      "name": "security_alerts",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 3,
+      "kind": "r",
+      "name": "timeline_events",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 5,
+      "kind": "r",
+      "name": "vaccine_records",
+      "owner": "postgres",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "public",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "p",
+      "name": "messages",
+      "owner": "supabase_realtime_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "realtime",
+      "total_bytes": 0
+    },
+    {
+      "estimated_rows": 73,
+      "exact_rows": 73,
+      "kind": "r",
+      "name": "schema_migrations",
+      "owner": "supabase_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "realtime",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "subscription",
+      "owner": "supabase_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "realtime",
+      "total_bytes": 32768
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "buckets",
+      "owner": "supabase_storage_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "storage",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "buckets_analytics",
+      "owner": "supabase_storage_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "storage",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "buckets_vectors",
+      "owner": "supabase_storage_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "storage",
+      "total_bytes": 16384
+    },
+    {
+      "estimated_rows": 61,
+      "exact_rows": 61,
+      "kind": "r",
+      "name": "migrations",
+      "owner": "supabase_storage_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "storage",
+      "total_bytes": 40960
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "objects",
+      "owner": "supabase_storage_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "storage",
+      "total_bytes": 49152
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "s3_multipart_uploads",
+      "owner": "supabase_storage_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "storage",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "s3_multipart_uploads_parts",
+      "owner": "supabase_storage_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "storage",
+      "total_bytes": 16384
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "vector_indexes",
+      "owner": "supabase_storage_admin",
+      "rls_enabled": true,
+      "rls_forced": false,
+      "schema": "storage",
+      "total_bytes": 24576
+    },
+    {
+      "estimated_rows": -1,
+      "exact_rows": 0,
+      "kind": "r",
+      "name": "secrets",
+      "owner": "supabase_admin",
+      "rls_enabled": false,
+      "rls_forced": false,
+      "schema": "vault",
+      "total_bytes": 24576
+    }
+  ],
+  "triggers": [
+    {
+      "definition": "CREATE TRIGGER on_auth_user_created AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION handle_new_user()",
+      "enabled": "O",
+      "function": "public.handle_new_user",
+      "name": "on_auth_user_created",
+      "table": "auth.users"
+    }
+  ],
+  "views": []
+}

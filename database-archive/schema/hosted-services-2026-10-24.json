@@ -1,0 +1,402 @@
+{
+  "_note": "SUPABASE-ARCHIVE-01 hosted Supabase-services inventory (scripts/hosted-services.sql). Aggregates only — no emails, names, metadata values, hashes or tokens.",
+  "auth": {
+    "app_metadata_keys": [
+      "provider",
+      "providers"
+    ],
+    "auth_functions": [
+      "email",
+      "jwt",
+      "role",
+      "uid"
+    ],
+    "identities_by_provider": {
+      "email": 1
+    },
+    "identities_columns": [
+      {
+        "column": "provider_id",
+        "default": null,
+        "generated": null,
+        "not_null": true,
+        "type": "text"
+      },
+      {
+        "column": "user_id",
+        "default": null,
+        "generated": null,
+        "not_null": true,
+        "type": "uuid"
+      },
+      {
+        "column": "identity_data",
+        "default": null,
+        "generated": null,
+        "not_null": true,
+        "type": "jsonb"
+      },
+      {
+        "column": "provider",
+        "default": null,
+        "generated": null,
+        "not_null": true,
+        "type": "text"
+      },
+      {
+        "column": "last_sign_in_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "created_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "updated_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "email",
+        "default": "lower((identity_data ->> 'email'::text))",
+        "generated": "s",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "column": "id",
+        "default": "gen_random_uuid()",
+        "generated": null,
+        "not_null": true,
+        "type": "uuid"
+      }
+    ],
+    "identities_constraints": [
+      "identities_pkey: PRIMARY KEY (id)",
+      "identities_provider_id_provider_unique: UNIQUE (provider_id, provider)",
+      "identities_user_id_fkey: FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+    ],
+    "identities_pk": "PRIMARY KEY (id)",
+    "mfa_factors": 0,
+    "oauth_clients": 0,
+    "one_time_tokens": 0,
+    "refresh_tokens": 0,
+    "saml_providers": 0,
+    "schema_migrations_count": 82,
+    "schema_migrations_latest": "20260831180000",
+    "sessions": 0,
+    "sso_providers": 0,
+    "user_metadata_keys": [
+      "email_verified"
+    ],
+    "users_anonymous": 0,
+    "users_banned": 0,
+    "users_bcrypt_hashes": 1,
+    "users_by_aud_role": {
+      "authenticated/authenticated": 1
+    },
+    "users_columns": [
+      {
+        "column": "instance_id",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "uuid"
+      },
+      {
+        "column": "id",
+        "default": null,
+        "generated": null,
+        "not_null": true,
+        "type": "uuid"
+      },
+      {
+        "column": "aud",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "role",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "email",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "encrypted_password",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "email_confirmed_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "invited_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "confirmation_token",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "confirmation_sent_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "recovery_token",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "recovery_sent_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "email_change_token_new",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "email_change",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "email_change_sent_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "last_sign_in_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "raw_app_meta_data",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "jsonb"
+      },
+      {
+        "column": "raw_user_meta_data",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "jsonb"
+      },
+      {
+        "column": "is_super_admin",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "boolean"
+      },
+      {
+        "column": "created_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "updated_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "phone",
+        "default": "NULL::character varying",
+        "generated": null,
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "column": "phone_confirmed_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "phone_change",
+        "default": "''::character varying",
+        "generated": null,
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "column": "phone_change_token",
+        "default": "''::character varying",
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "phone_change_sent_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "confirmed_at",
+        "default": "LEAST(email_confirmed_at, phone_confirmed_at)",
+        "generated": "s",
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "email_change_token_current",
+        "default": "''::character varying",
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "email_change_confirm_status",
+        "default": "0",
+        "generated": null,
+        "not_null": false,
+        "type": "smallint"
+      },
+      {
+        "column": "banned_until",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "reauthentication_token",
+        "default": "''::character varying",
+        "generated": null,
+        "not_null": false,
+        "type": "character varying(255)"
+      },
+      {
+        "column": "reauthentication_sent_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "is_sso_user",
+        "default": "false",
+        "generated": null,
+        "not_null": true,
+        "type": "boolean"
+      },
+      {
+        "column": "deleted_at",
+        "default": null,
+        "generated": null,
+        "not_null": false,
+        "type": "timestamp with time zone"
+      },
+      {
+        "column": "is_anonymous",
+        "default": "false",
+        "generated": null,
+        "not_null": true,
+        "type": "boolean"
+      }
+    ],
+    "users_created_range": {
+      "max": "2026-06-06",
+      "min": "2026-06-06"
+    },
+    "users_deleted": 0,
+    "users_email_confirmed": 1,
+    "users_last_sign_in_max": null,
+    "users_phone": 0,
+    "users_pk": "PRIMARY KEY (id)",
+    "users_sso": 0,
+    "users_total": 1,
+    "users_with_password": 1
+  },
+  "generated_at": "2026-10-24T17:17:17.870602+00:00",
+  "migration_history": {
+    "supabase_migrations_schema": false
+  },
+  "optional_services": {
+    "db_webhooks": false,
+    "pg_cron": false,
+    "pg_graphql": false,
+    "pg_net": false,
+    "pgsodium": false,
+    "wrappers_fdw": false
+  },
+  "profiles": {
+    "auth_without_profile": 0,
+    "by_role": {
+      "super_admin": 1
+    },
+    "orphans_vs_auth": 0,
+    "total": 1,
+    "without_farm": 1
+  },
+  "realtime": {
+    "publication_tables": [],
+    "schema_migrations_latest": 20260603120000,
+    "subscriptions": 0
+  },
+  "storage": {
+    "buckets": [],
+    "documents_with_storage_path": 0,
+    "migrations_count": 61,
+    "migrations_latest": "optimize-existing-functions-again",
+    "objects_total": 0
+  },
+  "vault": {
+    "secrets": 0
+  }
+}
