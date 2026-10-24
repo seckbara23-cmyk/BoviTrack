@@ -1,0 +1,8 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "archive/*": false,
+      "archive/supabase-cost-02a": false
+    }
+  }
+}

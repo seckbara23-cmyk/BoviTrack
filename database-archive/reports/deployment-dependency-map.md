@@ -47,9 +47,11 @@ Preview too.
 Disclosure: SUPABASE-ARCHIVE-01 did not request a deployment, but pushing its
 branch triggered the Preview above. It contains no application change (docs and
 scripts only) and is not publicly reachable. Deleting it is the owner's
-decision. To push archive branches without builds, the owner can either set an
-Ignored Build Step in Vercel, or add `git.deploymentEnabled` for `archive/*`
-branches in a `vercel.json` (repository change; needs approval).
+decision. At the owner's choice (SUPABASE-COST-02A), branch
+`archive/supabase-cost-02a` adds a root `vercel.json` with
+`git.deploymentEnabled` set to `false` for `archive/*` (and this branch by
+name), so archive branches are pushed without builds. `main` and production
+are unaffected.
 
 ## 4. Code-level Supabase dependencies
 

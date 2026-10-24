@@ -98,16 +98,18 @@ needs Vercel Pro (≈ $20 per member/month) regardless of the database choice.
 | 4 | Auth service configuration | record URLs/SMTP/templates from the Supabase dashboard |
 | 5 | F1 fix not applied anywhere shared | approve adoption before any real users |
 | 6 | Medium finding F2 (viewers can write) | design role-aware write policies (next phase) |
-| 7 | Automatic Vercel Previews for pushed branches | decide: keep, delete, or disable builds for `archive/*` |
+| 7 | Automatic Vercel Previews for pushed branches | builds for `archive/*` disabled by `vercel.json` (`git.deploymentEnabled`) on this branch; the existing ARCHIVE-01 Preview remains — owner decides whether to delete it |
 
 ## 10. Git branch, commit and push status
 
 Branch `archive/supabase-cost-02a`, created from `archive/supabase-archive-01`
 @ `3adbef0`; contains sanitized documentation, safe scripts and the proposed
 (unapplied) fix only. Staged content was scanned for backups, auth records,
-keys and credentials before committing. Not merged into `main`. Push status is
-recorded in the delivery summary (pushing a branch triggers a Vercel Preview
-build — see blocker 7).
+keys and credentials before committing. Not merged into `main`. At the owner's
+choice, a root `vercel.json` disables Git-triggered Vercel builds for
+`archive/*` branches (and this branch by name) so the push does not create a
+deployment; it does not affect `main` or production. Push status is recorded in
+the delivery summary.
 
 ## 11. Verdict for a future migration rehearsal: **CONDITIONAL GO**
 
