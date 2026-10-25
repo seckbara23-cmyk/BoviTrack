@@ -1,0 +1,64 @@
+{
+  "_note": "SUPABASE-COST-02B read-only activity check of project vustkojrbefcbzotgorc (scripts/activity-check.sql). Aggregates, counters and timestamps only — no row data, no query text, no identities.",
+  "api_role_calls": 0,
+  "auth_audit_entries": 0,
+  "auth_audit_last": null,
+  "auth_last_sign_in": null,
+  "auth_refresh_tokens": 0,
+  "auth_sessions": 0,
+  "auth_tables_last_access": "2026-10-24T17:44:55.574545+00:00",
+  "auth_users_total": 1,
+  "checked_at": "2026-10-25T12:51:29.584748+00:00",
+  "connections_now": [
+    {
+      "application": "postgrest",
+      "backend": "client backend",
+      "count": 1,
+      "role": "authenticator",
+      "state": "idle"
+    },
+    {
+      "application": "",
+      "backend": "client backend",
+      "count": 1,
+      "role": "supabase_admin",
+      "state": "idle"
+    },
+    {
+      "application": "pg_cron scheduler",
+      "backend": "pg_cron launcher",
+      "count": 1,
+      "role": "supabase_admin",
+      "state": null
+    },
+    {
+      "application": "pg_net 0.20.3",
+      "backend": "pg_net 0.20.3 worker",
+      "count": 1,
+      "role": "supabase_admin",
+      "state": "idle"
+    },
+    {
+      "application": "postgres_exporter",
+      "backend": "client backend",
+      "count": 1,
+      "role": "supabase_admin",
+      "state": "idle"
+    }
+  ],
+  "public_last_access": "2026-10-24T17:44:55.574545+00:00",
+  "public_tables": 13,
+  "public_tables_accessed_after": [],
+  "public_writes_since_reset": 47,
+  "server_started": "2026-06-06T21:34:02.36142+00:00",
+  "statements_by_role": {
+    "authenticator": 349,
+    "pgbouncer": 3,
+    "postgres": 533,
+    "supabase_admin": 55589,
+    "supabase_auth_admin": 1249,
+    "supabase_storage_admin": 322
+  },
+  "statements_since": "2026-06-06T21:32:57.08003+00:00",
+  "stats_reset": "2026-05-22T15:13:20.515541+00:00"
+}

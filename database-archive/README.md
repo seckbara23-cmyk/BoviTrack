@@ -7,7 +7,9 @@ rules. Nothing on the hosted project was migrated, paused, deleted or altered.
 
 **Start here:** [reports/final-report.md](reports/final-report.md) ·
 recovery hardening and migration readiness (SUPABASE-COST-02A):
-[reports/cost-02a-final.md](reports/cost-02a-final.md)
+[reports/cost-02a-final.md](reports/cost-02a-final.md) · suspension readiness
+(SUPABASE-COST-02B, decision **NO-GO** until off-site recovery is verified):
+[reports/cost-02b-final.md](reports/cost-02b-final.md)
 
 ## Status at a glance (2026-10-24)
 
