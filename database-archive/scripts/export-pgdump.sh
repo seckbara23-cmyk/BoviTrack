@@ -96,13 +96,25 @@ GPG=(gpg --batch --quiet --yes --no-symkey-cache --pinentry-mode loopback
 # Connection settings (non-secret) are exported; the password is not.
 export PGHOST="$HOST" PGPORT="$PORT" PGUSER="$DBUSER" PGDATABASE="$DBNAME"
 export PGCLIENTENCODING=UTF8 PGTZ=UTC PGCONNECT_TIMEOUT=15
-case "$HOST" in
-  127.0.0.1|localhost|::1) export PGSSLMODE="${PGSSLMODE:-prefer}" ;;
-  *) if [ -n "$SSLROOTCERT" ]; then export PGSSLMODE=verify-full PGSSLROOTCERT="$SSLROOTCERT"
-     else export PGSSLMODE="${PGSSLMODE:-require}"
-          echo "note: TLS encrypted but the server certificate is NOT verified; pass --sslrootcert for verify-full" >&2
-     fi ;;
-esac
+CA_FP="none"
+if [ -n "$SSLROOTCERT" ]; then
+  # An explicit CA always means full verification (certificate chain + hostname).
+  [ -r "$SSLROOTCERT" ] || { echo "CA file not readable: $SSLROOTCERT" >&2; exit 1; }
+  if command -v openssl >/dev/null 2>&1; then
+    openssl x509 -in "$SSLROOTCERT" -noout 2>/dev/null \
+      || { echo "not a PEM certificate: $SSLROOTCERT" >&2; exit 1; }
+    CA_FP="$(openssl x509 -in "$SSLROOTCERT" -noout -fingerprint -sha256 | cut -d= -f2)"
+  fi
+  # Native Windows libpq needs a Windows path (C:/...), not a Git Bash path (/c/...).
+  command -v cygpath >/dev/null 2>&1 && SSLROOTCERT="$(cygpath -m "$SSLROOTCERT")"
+  export PGSSLMODE=verify-full PGSSLROOTCERT="$SSLROOTCERT"
+else
+  case "$HOST" in
+    127.0.0.1|localhost|::1) export PGSSLMODE="${PGSSLMODE:-prefer}" ;;
+    *) export PGSSLMODE="${PGSSLMODE:-require}"
+       echo "note: TLS encrypted but the server certificate is NOT verified; pass --sslrootcert for verify-full" >&2 ;;
+  esac
+fi
 
 DBPASS="${PGPASSWORD:-}"
 unset PGPASSWORD
@@ -139,6 +151,7 @@ if [ "$DUMP_MAJOR" -lt "$SRV_MAJOR" ]; then
 fi
 SSL_IN_USE="$(pg "$PSQL" -X -w -A -t -q -c "select coalesce((select ssl from pg_stat_ssl where pid = pg_backend_pid())::text, 'unknown')")"
 echo "== preflight: server $SRV_VERSION as $CUR_USER · pg_dump $DUMP_MAJOR · sslmode=$PGSSLMODE · ssl=$SSL_IN_USE"
+echo "   CA sha256 fingerprint: $CA_FP"
 
 # --- dumps -------------------------------------------------------------------------
 echo "== pg_dump -> $OUT"
@@ -166,7 +179,7 @@ fi
   echo "source:      $DBUSER@$HOST:$PORT/$DBNAME (server $SRV_VERSION)"
   echo "pg_dump:     $("$PG_DUMP" --version)"
   echo "gnupg:       $(gpg --version | head -1)"
-  echo "tls:         sslmode=$PGSSLMODE ssl_in_use=$SSL_IN_USE"
+  echo "tls:         sslmode=$PGSSLMODE ssl_in_use=$SSL_IN_USE ca_sha256=$CA_FP"
   echo "full dump:   $FULL_STATUS"
   echo "roles dump:  $ROLES_STATUS"
   echo "keys:        app key -> schema-public, data-public, roles; auth key -> data-public-auth, full-database"

@@ -24,6 +24,17 @@ not requested, reset or rotated. Prepared instead:
 
 Owner action: see §11, item 1.
 
+**Update (owner-confirmed parameters):** Session pooler
+`aws-0-eu-west-1.pooler.supabase.com:5432`, user `postgres.vustkojrbefcbzotgorc`,
+database `postgres`. Verified without logging in: pooler reachable, TLS 1.3,
+certificate chain to *Supabase Root 2021 CA* (`verify-full` needs the dashboard
+CA file). The script now converts Git Bash CA paths for the native Windows
+client, always applies `verify-full` when a CA is given, and records the CA
+fingerprint; proven locally (right CA → OK, wrong CA / hostname mismatch →
+refused with 0 files, rehearsal 48/48). Exact owner commands:
+[canonical-dump-procedure.md](canonical-dump-procedure.md). The dump itself
+remains **pending** until the owner types the password at the hidden prompt.
+
 ## 2. Encrypted archive status — ✅ VERIFIED
 
 Runs `2026-10-24T172145Z` and `…174450Z` (app + auth bundles) pass checksums,

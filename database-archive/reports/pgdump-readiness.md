@@ -68,6 +68,10 @@ portable dump.
 
 ## 4. Running it
 
+> Owner-confirmed parameters, TLS findings and the exact Windows (Git Bash)
+> commands are in [canonical-dump-procedure.md](canonical-dump-procedure.md)
+> (SUPABASE-COST-03A).
+
 ```bash
 cd C:/Projects/BoviTrack
 KEYS=~/.bovitrack-archive/keys
