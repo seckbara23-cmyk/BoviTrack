@@ -103,3 +103,56 @@ hosted state of 2026-10-24.
 3. Apply to the target database through the normal migration path, run the
    regression tests there **inside their rolled-back transaction**.
 4. If anything misbehaves, run the rollback file.
+
+---
+
+# Security remediation plan — viewers can write farm records (finding F2)
+
+SUPABASE-COST-03A · 2026-10-25. **Design and local verification only; not
+applied anywhere.** Files: [`security/proposed/0004_role_aware_write_policies.sql`](../security/proposed/0004_role_aware_write_policies.sql),
+[`test_0004_…`](../security/proposed/test_0004_role_aware_write_policies.sql),
+[`rollback_0004_…`](../security/proposed/rollback_0004_role_aware_write_policies.sql).
+
+## Finding and root cause
+
+| | |
+|---|---|
+| Severity | **Medium** |
+| Affected | every `*_write` policy in `0002_rls.sql` (12 tables) |
+| Root cause | write policies are `FOR ALL` and check only farm membership (`can_access_farm` / `can_access_animal`), never the caller's role — so a `viewer` can insert, update and delete farm records, and any farm member can delete the farm (cascading to all its data) |
+| Confirmed | yes — smoke-test check 10 on a disposable restore of the archived schema (zero drift vs hosted) |
+
+## Proposed fix
+
+Split each `FOR ALL` policy into `INSERT` / `UPDATE` / `DELETE` policies that
+also check the role, via new `SECURITY DEFINER` helpers with `search_path = ''`
+(`my_role`, `can_write_farm`, `can_admin_farm`, `can_write_animal`,
+`can_admin_animal`). Read policies and farm isolation are unchanged.
+
+| Role | Read | Create / edit records | Delete records | Edit farm | Create / delete farm |
+|---|---|---|---|---|---|
+| super_admin | all | all | all | all | yes |
+| farm_admin | own farm | own farm | own farm | own farm | no |
+| field_agent | own farm | own farm | no | no | no |
+| veterinarian | own farm | own farm | no | no | no |
+| viewer | own farm | **no** | **no** | no | no |
+
+The matrix is a product assumption — confirm it before adoption (e.g. whether
+veterinarians should write only health records).
+
+## Verification (disposable restore, 2026-10-25)
+
+| Run | Result |
+|---|---|
+| F2 regression tests **before** the fix | **10 of 19 fail** (some are knock-on effects of deletions the old policies allowed) |
+| F2 regression tests **after** 0003 + 0004 | **19/19 pass** |
+| F1 regression tests with both fixes | 11/11 pass |
+| RLS smoke test with both fixes | **12/12 pass** — all three former findings (checks 10–12) resolved |
+| Data | `03_verify.sql`: 48/48 rows identical |
+| Rollback 0004 then 0003 | **zero drift** vs the hosted inventory; F2 tests fail again |
+
+## Rule for any future environment
+
+Do **not** expose the archived schema to users in a new public environment
+until both 0003 and 0004 (or approved equivalents) are applied and their
+regression tests plus `restore/04_rls_smoke_test.sql` pass there.

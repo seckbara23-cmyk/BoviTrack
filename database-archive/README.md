@@ -9,7 +9,10 @@ rules. Nothing on the hosted project was migrated, paused, deleted or altered.
 recovery hardening and migration readiness (SUPABASE-COST-02A):
 [reports/cost-02a-final.md](reports/cost-02a-final.md) · suspension readiness
 (SUPABASE-COST-02B, decision **NO-GO** until off-site recovery is verified):
-[reports/cost-02b-final.md](reports/cost-02b-final.md)
+[reports/cost-02b-final.md](reports/cost-02b-final.md) · final archive before
+deletion (SUPABASE-COST-03A, deletion **NO-GO** — canonical dump and
+independent key copies outstanding): [reports/cost-03a-final.md](reports/cost-03a-final.md)
+· rebuilding later: [reports/future-restoration-guide.md](reports/future-restoration-guide.md)
 
 ## Status at a glance (2026-10-24)
 

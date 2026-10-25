@@ -3,7 +3,8 @@
     "deploymentEnabled": {
       "archive/*": false,
       "archive/supabase-cost-02a": false,
-      "archive/supabase-cost-02b": false
+      "archive/supabase-cost-02b": false,
+      "archive/supabase-cost-03a": false
     }
   }
 }

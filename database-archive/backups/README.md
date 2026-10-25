@@ -33,6 +33,32 @@ deterministic. The ciphertext differs because of random S2K salts.
 Both runs use the same keys and are interchangeable. Run `172145Z` is the one
 rehearsed.
 
+On 2026-10-25 (SUPABASE-COST-03A) the hosted data was reconciled read-only
+against both runs: **all 15 tables identical** (count + server-side row-set
+md5). No newer data snapshot was needed.
+
+## Run `2026-10-25T132152Z-authconfig` (Auth configuration)
+
+The project's Supabase configuration (`supabase config pull`, read-only; the
+API masks credential values), encrypted with the **auth-restricted** key.
+Non-secret settings are recorded in
+[auth/auth-config-2026-10-25.md](../auth/auth-config-2026-10-25.md).
+
+| File | Bytes | SHA-256 |
+|---|---|---|
+| `supabase-config.toml.gpg` | 5923 | `e94d9bf7e2ce5b496aabbcc4d6be9178367a2e5d43500db955d17282e2149edc` |
+
+## Off-site copies (Google Drive, owner-authorized 2026-10-25)
+
+Two separate folders in the owner's Drive, inherited sharing disabled; keys are
+**not** stored there. Every file was downloaded back and matched its SHA-256,
+and a full restore from the downloaded copies passed (48/48 rows).
+
+| Folder | Contents |
+|---|---|
+| `BoviTrack offsite backup - APP DATA (run 2026-10-24T172145Z)` | `app-data.json.gpg`, `SHA256SUMS`, `RECOVERY-POINTER.txt`, `DRIVE-SHA256SUMS` |
+| `BoviTrack offsite backup - AUTH RESTRICTED (run 2026-10-24T172145Z)` | `auth-restricted.json.gpg`, `supabase-config.toml.gpg`, `authconfig-SHA256SUMS`, `RECOVERY-POINTER.txt`, `DRIVE-SHA256SUMS` |
+
 ## Encryption
 
 - **Format:** OpenPGP (RFC 4880) symmetric, GnuPG 2.4.9. That means SKESK v4

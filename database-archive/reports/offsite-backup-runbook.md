@@ -30,7 +30,7 @@ established** until steps 3–5 are done and verified.
 
 ## 2. Recovery checklist (tick every line)
 
-- [ ] Recovery owner named: ______________________ · deputy: ______________________
+- [x] Recovery owner named: **Bara Seck** (recorded 2026-10-25) · deputy: ______________________ (open)
 - [ ] Off-site location 1 approved (type, owner, access list): ______________________
 - [ ] Off-site location 2 / auth location approved: ______________________
 - [ ] Both passphrases stored in the password manager (entry name recorded)
